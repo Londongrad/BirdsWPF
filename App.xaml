@@ -1,0 +1,26 @@
+﻿<Application x:Class="BirdsWPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:viewModels="clr-namespace:BirdsWPF.ViewModels"
+             xmlns:views="clr-namespace:BirdsWPF.Views.UserControls">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/wwwroot/Themes/MenuButtonTheme.xaml" />
+                <ResourceDictionary Source="/wwwroot/Themes/CSButtonTheme.xaml" />
+                <ResourceDictionary Source="/wwwroot/Themes/SetButtonTheme.xaml" />
+                <ResourceDictionary Source="/wwwroot/Themes/ToggleButtonTheme.xaml" />
+                <ResourceDictionary Source="/wwwroot/Themes/ComboboxTheme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewModels:AddBirdViewModel}">
+                <views:AddBirdView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:BirdsViewModel}">
+                <views:BirdsView />
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
