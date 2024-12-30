@@ -1,21 +1,19 @@
-﻿using BirdsWPF.Core;
+﻿using BirdsCommon;
 using BirdsWPF.Models;
 using BirdsWPF.Repositories.Abstract;
 using System.Collections.ObjectModel;
 
 namespace BirdsWPF.ViewModels
 {
-    public class BirdsViewModel : ObservableObject
+    public class BirdsViewModel : ViewModelBase
     {
         #region [ Fields ]
-        private readonly IBirdRepository _birdRepository;
-        private int _numOfBirds = 0;
-        private RelayCommand<BirdEntity>? _deleteBirdCommand;
+        private readonly IBirdRepository birdRepository;
         #endregion
 
         public BirdsViewModel(IBirdRepository birdRepository)
         {
-            _birdRepository = birdRepository;
+            this.birdRepository = birdRepository;
             LoadBirds();
         }
 
@@ -24,18 +22,18 @@ namespace BirdsWPF.ViewModels
         public string? Name { get; set; }
         public List<string> BirdsNames => ["Nuthatch", "Great tit", "Black-capped chickadee", "Sparrow", "Amadina", "All of them", "Only inactive", "Only active"];
         public DateOnly Departure { get; set; } = DateOnly.FromDateTime(DateTime.Now);
-        public string NumberOfBirds { get => "Number of birds: " + _numOfBirds.ToString(); set => Set(ref _numOfBirds, int.Parse(value)); }
+        public int NumberOfBirds { get => Get<int>(); set => Set(value); }
         #endregion
 
         #region [ Commands ]
-        public RelayCommand<BirdEntity> DeleteBirdCommand => _deleteBirdCommand ??= new RelayCommand<BirdEntity>
+        public RelayCommand DeleteBirdCommand => GetCommand<BirdEntity>
         (
             async bird =>
             {
                 bird.Departure = Departure;
                 bird.IsActive = false;
                 DeleteBirdCommand.RaiseCanExecuteChanged(); // Обновление команды
-                await _birdRepository.UpdateAsync(bird);
+                await birdRepository.UpdateAsync(bird);
             },
             bird => bird.IsActive
         );
@@ -44,7 +42,7 @@ namespace BirdsWPF.ViewModels
         #region [ Methods ]
         private async void LoadBirds()
         {
-            var birds = await _birdRepository.GetAllAsync();
+            var birds = await birdRepository.GetAllAsync();
             Birds.Clear();
             foreach (var bird in birds)
                 Birds.Add(bird);
@@ -75,7 +73,7 @@ namespace BirdsWPF.ViewModels
             //}
             #endregion
 
-            NumberOfBirds = Birds.Count.ToString();
+            NumberOfBirds = Birds.Count;
         }
 
         #region [ Тут будет команда по показу сущностей в зависимости от выбранного из ComboBox ]

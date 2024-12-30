@@ -9,6 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Core\**" />
+    <Compile Remove="Services\Abstracts\**" />
+    <EmbeddedResource Remove="Core\**" />
+    <EmbeddedResource Remove="Services\Abstracts\**" />
+    <None Remove="Core\**" />
+    <None Remove="Services\Abstracts\**" />
+    <Page Remove="Core\**" />
+    <Page Remove="Services\Abstracts\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="wwwroot\Images\shutdown.png" />
   </ItemGroup>
 
@@ -22,6 +33,10 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BirdsCommon\BirdsCommon.csproj" />
   </ItemGroup>
 
   <ItemGroup>

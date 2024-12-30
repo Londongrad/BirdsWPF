@@ -1,14 +1,11 @@
-﻿using BirdsWPF.Core;
+﻿using BirdsCommon;
 using BirdsWPF.Models;
 using BirdsWPF.Repositories.Abstract;
 
 namespace BirdsWPF.ViewModels
 {
-    public class AddBirdViewModel(IBirdRepository birdRepository) : ObservableObject
+    public class AddBirdViewModel(IBirdRepository birdRepository) : ViewModelBase
     {
-        #region [ Fields ]
-        private RelayCommand? _addBirdCommand;
-        #endregion
 
         #region [ Properties ]
         public string? Name { get; set; }
@@ -18,9 +15,7 @@ namespace BirdsWPF.ViewModels
         #endregion
 
         #region [ Commands ]
-        public RelayCommand AddBirdCommand => _addBirdCommand ??= new RelayCommand
-        (
-            async _ =>
+        public RelayCommand AddBirdCommand => GetCommand(async () =>
             {
                 var bird = new BirdEntity()
                 {
@@ -30,7 +25,7 @@ namespace BirdsWPF.ViewModels
                 };
                 await birdRepository.AddAsync(bird);
             },
-            _ => Name is not null
+            () => Name is not null
         );
         #endregion
     }
