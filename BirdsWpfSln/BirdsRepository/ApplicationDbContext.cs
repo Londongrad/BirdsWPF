@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace BirdsRepository
 {
-    internal class ApplicationDbContext : DbContext
+    internal class ApplicationDbContext(string dbFullName) : DbContext
     {
         public DbSet<Bird>? Birds { get; set; }
 
@@ -15,12 +15,7 @@ namespace BirdsRepository
             base.OnModelCreating(modelBuilder);
         }
 
-        public string DbFullName { get; }
-
-        public ApplicationDbContext(string dbFullName)
-        {
-            DbFullName = dbFullName;
-        }
+        public string DbFullName { get; } = dbFullName;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -30,10 +25,7 @@ namespace BirdsRepository
                 .EnableSensitiveDataLogging()
                 .UseSqlite($"Data Source={DbFullName}");
 
-            optionsBuilder.LogTo(Console.WriteLine, new[] { RelationalEventId.CommandExecuted });
-
-
+            optionsBuilder.LogTo(Console.WriteLine, [RelationalEventId.CommandExecuted]);
         }
-
     }
 }

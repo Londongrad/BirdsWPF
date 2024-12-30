@@ -193,13 +193,10 @@ namespace BirdsCommon
         private static int PrivateIndexOf<T>(this IList<T> list, int index, int count, Predicate<T> predicate)
         {
             if (index < 0 || index >= list.Count)
-                throw new ArgumentOutOfRangeException("index");
-            if (count < 0)
-                throw new ArgumentOutOfRangeException("count");
+                throw new ArgumentOutOfRangeException(nameof(index));
+            ArgumentOutOfRangeException.ThrowIfNegative(count);
             count += index;
-            if (count > list.Count)
-                throw new ArgumentOutOfRangeException("count");
-
+            ArgumentOutOfRangeException.ThrowIfGreaterThan(count, list.Count);
 
             for (int i = index; i < count; i++)
             {

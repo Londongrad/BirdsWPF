@@ -26,8 +26,13 @@ namespace BirdsViewModels
         private readonly ObservableCollection<Bird> privateBirds;
         public ReadOnlyObservableCollection<Bird> Birds { get; }
 
-        private static ReadOnlyCollection<string> privateBirdNameGroups = Array.AsReadOnly(["Nuthatch", "Great tit", "Black-capped chickadee", "Sparrow", "Amadina", "All of them", "Only inactive", "Only active"]);
+        private static readonly ReadOnlyCollection<string> privateBirdNameGroups
+            = Array.AsReadOnly(["Nuthatch", "Great tit", "Black-capped chickadee", "Sparrow", "Amadina", "All of them", "Only inactive", "Only active"]);
+
+        /// <summary>Предоставляет статическую коллекцию <see cref="privateBirdNameGroups"/>. 
+        /// Можно было обойтись статическим полем, но для облегчения привязок создано это прокси свойство.</summary>
         public ReadOnlyCollection<string> BirdNameGroups => privateBirdNameGroups;
+
         public DateOnly Departure { get; } = DateOnly.FromDateTime(DateTime.Now);
         public RelayCommand DeleteBirdCommand => GetCommand<Bird>
         (

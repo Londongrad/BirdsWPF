@@ -18,7 +18,7 @@ namespace BirdsCommon
         /// <summary>Команда вызывающая метод <see cref="NavigateTo"/> с реализацией по умолчанию.</summary>
         RelayCommand NavigateToCommand => GetCommand();
 
-        private static readonly ConditionalWeakTable<INavigationService, RelayCommand> commands = new();
+        private static readonly ConditionalWeakTable<INavigationService, RelayCommand> commands = [];
 
         private RelayCommand GetCommand()
         {

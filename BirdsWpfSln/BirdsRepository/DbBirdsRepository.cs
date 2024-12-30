@@ -8,7 +8,9 @@ namespace BirdsRepository
     public class DbBirdsRepository : IRepository<Bird>
     {
 
+#pragma warning disable IDE0052 // Удалить непрочитанные закрытые члены
         private readonly DbContext context;
+#pragma warning restore IDE0052 // Удалить непрочитанные закрытые члены
         private readonly Func<DbContext> createContext;
         private readonly DbSet<Bird> birds;
         public DbBirdsRepository(DbContext context, Func<DbContext> createContext)

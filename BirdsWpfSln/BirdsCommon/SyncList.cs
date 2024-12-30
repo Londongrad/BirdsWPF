@@ -8,18 +8,18 @@ namespace BirdsCommon
         private readonly IList<T> privateList;
 
         public SyncedList()
-            : this(new List<T>(), new ReaderWriterLock())
+            : this([], new ReaderWriterLock())
         { }
 
-        public SyncedList(ReaderWriterLock readerWriterLocker) : this(new List<T>(), readerWriterLocker)
+        public SyncedList(ReaderWriterLock readerWriterLocker) : this([], readerWriterLocker)
         { }
         public SyncedList(IList<T> list) : this(list, new ReaderWriterLock())
         { }
         public SyncedList(IList<T> list, ReaderWriterLock readerWriterLocker)
         {
-            if (list is null) throw new ArgumentNullException(nameof(list));
-            if (!(list is ICollection)) throw new ArgumentException("There must be an implementation of the ICollection interface.", nameof(list));
-            if (!(list is IList)) throw new ArgumentException("There must be an implementation of the IList interface.", nameof(list));
+            ArgumentNullException.ThrowIfNull(list);
+            if (list is not ICollection) throw new ArgumentException("There must be an implementation of the ICollection interface.", nameof(list));
+            if (list is not IList) throw new ArgumentException("There must be an implementation of the IList interface.", nameof(list));
 
             privateList = list;
             ReaderWriterLocker = readerWriterLocker ?? throw new ArgumentNullException(nameof(readerWriterLocker));
@@ -43,7 +43,7 @@ namespace BirdsCommon
             }
         }
 
-        object IList.this[int index]
+        object? IList.this[int index]
         {
             get => this[index];
             set
@@ -79,7 +79,7 @@ namespace BirdsCommon
             ReaderWriterLocker.ReleaseWriterLock();
         }
 
-        public int Add(object value)
+        public int Add(object? value)
         {
             ReaderWriterLocker.AcquireWriterLock(Timeout.InfiniteTimeSpan);
             int index = ((IList)privateList).Add(value);
@@ -102,7 +102,7 @@ namespace BirdsCommon
             return contains;
         }
 
-        public bool Contains(object value)
+        public bool Contains(object? value)
         {
             ReaderWriterLocker.AcquireReaderLock(Timeout.InfiniteTimeSpan);
             bool contains = ((IList)privateList).Contains(value);
@@ -137,7 +137,7 @@ namespace BirdsCommon
             return index;
         }
 
-        public int IndexOf(object value)
+        public int IndexOf(object? value)
         {
             ReaderWriterLocker.AcquireWriterLock(Timeout.InfiniteTimeSpan);
             int index = ((IList)privateList).IndexOf(value);
@@ -152,7 +152,7 @@ namespace BirdsCommon
             ReaderWriterLocker.ReleaseWriterLock();
         }
 
-        public void Insert(int index, object value)
+        public void Insert(int index, object? value)
         {
             ReaderWriterLocker.AcquireWriterLock(Timeout.InfiniteTimeSpan);
             ((IList)privateList).Insert(index, value);
@@ -167,7 +167,7 @@ namespace BirdsCommon
             return remove;
         }
 
-        public void Remove(object value)
+        public void Remove(object? value)
         {
             ReaderWriterLocker.AcquireWriterLock(Timeout.InfiniteTimeSpan);
             ((IList)privateList).Remove(value);

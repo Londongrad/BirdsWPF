@@ -17,7 +17,7 @@ namespace BirdsCommon
             }
             catch (ApplicationException)
             {
-                value = default(T);
+                value = default;
                 return false;
             }
 

@@ -53,7 +53,7 @@
         private static ExecuteHandler<object>? Convert(ExecuteHandler<T> execute, ConverterFromObjectHandler<T> converter)
         {
             if (execute is null) return null;
-            if (converter is null) throw new ArgumentNullException(nameof(converter));
+            ArgumentNullException.ThrowIfNull(converter);
 
             return p =>
             {
@@ -80,7 +80,7 @@
         private static CanExecuteHandler<object>? Convert(CanExecuteHandler<T> canExecute, ConverterFromObjectHandler<T> converter)
         {
             if (canExecute is null) return null;
-            if (converter is null) throw new ArgumentNullException(nameof(converter));
+            ArgumentNullException.ThrowIfNull(converter);
 
             return p => (p is T t || converter(p, out t)) &&
                         canExecute(t);
