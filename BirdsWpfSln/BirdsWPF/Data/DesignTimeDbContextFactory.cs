@@ -9,12 +9,12 @@ namespace BirdsWPF.Data
     {
         public ApplicationDbContext CreateDbContext(string[]? args = null)
         {
-            var configuration = new ConfigurationBuilder()
+            IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            DbContextOptionsBuilder<ApplicationDbContext> optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             //var connectionString = configuration.GetConnectionString("DBMain");
 
             optionsBuilder.UseSqlite("Data Source=birds.db");

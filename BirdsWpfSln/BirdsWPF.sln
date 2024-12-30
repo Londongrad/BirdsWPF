@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirdsCommon", "BirdsCommon\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirdsWPF", "BirdsWPF\BirdsWPF.csproj", "{44AA017E-96EA-496B-90CD-49AF0945CEE8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirdsRepository", "BirdsRepository\BirdsRepository.csproj", "{6784BBED-8A81-4AB7-89B4-C183BDF22054}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{44AA017E-96EA-496B-90CD-49AF0945CEE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44AA017E-96EA-496B-90CD-49AF0945CEE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44AA017E-96EA-496B-90CD-49AF0945CEE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6784BBED-8A81-4AB7-89B4-C183BDF22054}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6784BBED-8A81-4AB7-89B4-C183BDF22054}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6784BBED-8A81-4AB7-89B4-C183BDF22054}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6784BBED-8A81-4AB7-89B4-C183BDF22054}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
