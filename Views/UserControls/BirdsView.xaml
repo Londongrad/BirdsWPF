@@ -82,7 +82,7 @@
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center" />
 
-                            <TextBlock Text="{Binding Departure}"
+                            <TextBlock Text="{Binding Departure, StringFormat=dd.MM.yyyy}"
                                        Margin="0 0 20 0"
                                        Foreground="White"
                                        FontSize="24"
@@ -111,7 +111,8 @@
                                         Foreground="White"
                                         HorizontalContentAlignment="Center"
                                         VerticalContentAlignment="Center"
-                                        Command="{Binding DeleteBirdCommand}"
+                                        Command="{Binding DataContext.DeleteBirdCommand,
+                                                          RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:BirdsView}}}"
                                         CommandParameter="{Binding}">
                                 </Button>
 
