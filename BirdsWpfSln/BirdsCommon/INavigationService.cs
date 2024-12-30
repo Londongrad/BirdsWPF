@@ -20,7 +20,7 @@ namespace BirdsCommon
 
         private static readonly ConditionalWeakTable<INavigationService, RelayCommand> commands = new();
 
-        internal RelayCommand GetCommand()
+        private RelayCommand GetCommand()
         {
             if (!commands.TryGetValue(this, out RelayCommand? command))
             {

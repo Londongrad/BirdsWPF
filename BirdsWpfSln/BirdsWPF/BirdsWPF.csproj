@@ -9,14 +9,38 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Configurations\**" />
     <Compile Remove="Core\**" />
-    <Compile Remove="Services\Abstracts\**" />
+    <Compile Remove="Data\**" />
+    <Compile Remove="Extensions\**" />
+    <Compile Remove="Models\**" />
+    <Compile Remove="Repositories\**" />
+    <Compile Remove="Services\**" />
+    <Compile Remove="ViewModels\**" />
+    <EmbeddedResource Remove="Configurations\**" />
     <EmbeddedResource Remove="Core\**" />
-    <EmbeddedResource Remove="Services\Abstracts\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <EmbeddedResource Remove="Extensions\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <EmbeddedResource Remove="Repositories\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <EmbeddedResource Remove="ViewModels\**" />
+    <None Remove="Configurations\**" />
     <None Remove="Core\**" />
-    <None Remove="Services\Abstracts\**" />
+    <None Remove="Data\**" />
+    <None Remove="Extensions\**" />
+    <None Remove="Models\**" />
+    <None Remove="Repositories\**" />
+    <None Remove="Services\**" />
+    <None Remove="ViewModels\**" />
+    <Page Remove="Configurations\**" />
     <Page Remove="Core\**" />
-    <Page Remove="Services\Abstracts\**" />
+    <Page Remove="Data\**" />
+    <Page Remove="Extensions\**" />
+    <Page Remove="Models\**" />
+    <Page Remove="Repositories\**" />
+    <Page Remove="Services\**" />
+    <Page Remove="ViewModels\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +61,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BirdsCommon\BirdsCommon.csproj" />
+    <ProjectReference Include="..\BirdsRepository\BirdsRepository.csproj" />
+    <ProjectReference Include="..\ViewModels\BirdsViewModels.csproj" />
   </ItemGroup>
 
   <ItemGroup>

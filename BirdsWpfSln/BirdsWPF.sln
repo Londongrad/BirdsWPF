@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirdsWPF", "BirdsWPF\BirdsW
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirdsRepository", "BirdsRepository\BirdsRepository.csproj", "{6784BBED-8A81-4AB7-89B4-C183BDF22054}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirdsViewModels", "ViewModels\BirdsViewModels.csproj", "{D2745373-576B-40E9-9046-CE3DA51B7F68}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{6784BBED-8A81-4AB7-89B4-C183BDF22054}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6784BBED-8A81-4AB7-89B4-C183BDF22054}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6784BBED-8A81-4AB7-89B4-C183BDF22054}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2745373-576B-40E9-9046-CE3DA51B7F68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2745373-576B-40E9-9046-CE3DA51B7F68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2745373-576B-40E9-9046-CE3DA51B7F68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2745373-576B-40E9-9046-CE3DA51B7F68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

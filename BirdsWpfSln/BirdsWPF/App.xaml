@@ -1,8 +1,12 @@
 ﻿<Application x:Class="BirdsWPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:viewModels="clr-namespace:BirdsWPF.ViewModels"
-             xmlns:views="clr-namespace:BirdsWPF.Views.UserControls">
+             xmlns:vm="clr-namespace:BirdsViewModels;assembly=BirdsViewModels"
+             xmlns:vctrls="clr-namespace:BirdsWPF.Views.UserControls"
+             xmlns:local="clr-namespace:BirdsWPF"
+             Startup="OnStartup">
+             <!--xmlns:views="clr-namespace:BirdsWPF.Views.UserControls"-->
+             <!--xmlns:viewModels="clr-namespace:BirdsWPF.ViewModels"-->
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -12,13 +16,13 @@
                 <ResourceDictionary Source="/wwwroot/Themes/ToggleButtonTheme.xaml" />
                 <ResourceDictionary Source="/wwwroot/Themes/ComboboxTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
-            <DataTemplate DataType="{x:Type viewModels:AddBirdViewModel}">
-                <views:AddBirdView />
+            <local:MainBirdsViewModel x:Key="mainVM"/>
+            <DataTemplate DataType="{x:Type vm:AddBirdViewModel}">
+                <vctrls:AddBirdView />
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type viewModels:BirdsViewModel}">
-                <views:BirdsView />
+            <DataTemplate DataType="{x:Type vm:BirdsViewModel}">
+                <vctrls:BirdsView />
             </DataTemplate>
 
         </ResourceDictionary>

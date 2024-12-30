@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:BirdsWPF.ViewModels"
+        xmlns:vm="clr-namespace:BirdsViewModels;assembly=BirdsViewModels"
         mc:Ignorable="d"
         Height="900"
         Width="1500"
@@ -12,12 +12,15 @@
         Background="Transparent"
         AllowsTransparency="True"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        DataContext="{DynamicResource mainVM}">
 
-    <d:FrameworkElement.DataContext>
-        <vm:MainWindowViewModel />
-    </d:FrameworkElement.DataContext>
-    
+    <!--<d:FrameworkElement.DataContext>
+        <vm:>
+    </d:FrameworkElement.DataContext>-->
+    <!--<Window.Resources>
+        <vm:MainBirdsViewModel/>
+    </Window.Resources>-->
     <Border Background="#272544"
             CornerRadius="40">
         <Grid>
@@ -57,13 +60,15 @@
                              FontSize="20"
                              Style="{StaticResource MenuButtonTheme}"
                              IsChecked="True"
-                             Command="{Binding ToABViewCommand}" />
+                             Command="{Binding NavigateToType, Mode=OneWay}"
+                             CommandParameter="{x:Type vm:AddBirdViewModel}"/>
                 <RadioButton Content="Birds"
                              Height="50"
                              Foreground="White"
                              FontSize="20"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding ToBirdsViewCommand}" />
+                             Command="{Binding NavigateToType, Mode=OneWay}"
+                             CommandParameter="{x:Type vm:BirdsViewModel}"/>
                 <RadioButton Content="Import"
                              Height="50"
                              Foreground="White"
@@ -75,7 +80,7 @@
             <ContentControl Grid.Column="1"
                             Grid.Row="1"
                             Margin="20"
-                            Content="{Binding Navigation.CurrentView}">
+                            Content="{Binding Current}">
             </ContentControl>
         </Grid>
     </Border>
