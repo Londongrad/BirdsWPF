@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:view="clr-namespace:BirdsWPF.Views.UserControls"
              xmlns:vm="clr-namespace:BirdsWPF.ViewModels"
+             d:DataContext="{d:DesignInstance Type=vm:BirdsViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">

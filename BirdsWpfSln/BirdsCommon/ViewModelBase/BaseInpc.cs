@@ -1,8 +1,7 @@
-﻿using System.Collections.Specialized;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace BirdsWPF.Core
+namespace BirdsCommon
 {
     /// <summary>Базовый класс с реализацией <see cref="INotifyPropertyChanged"/>.</summary>
     public abstract class BaseInpc : INotifyPropertyChanged
@@ -56,13 +55,5 @@ namespace BirdsWPF.Core
         /// Если в переопределённом методе не будет вызова базового, то возможно нежелательное изменение логики базового класса.</remarks>
         protected virtual void OnPropertyChanged(string propertyName, object? oldValue, object? newValue) { }
     }
-    public class ObservableObject : BaseInpc, INotifyPropertyChanged
-    {
-        //public event PropertyChangedEventHandler? PropertyChanged;
 
-        //protected void OnPropertyChanged([CallerMemberName] string? name = null)
-        //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        //}
-    }
 }
