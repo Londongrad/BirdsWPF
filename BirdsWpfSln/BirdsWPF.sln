@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirdsCommon", "BirdsCommon\BirdsCommon.csproj", "{BE0854B8-9978-485F-B616-649367896A97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirdsWPF", "BirdsWPF\BirdsWPF.csproj", "{44AA017E-96EA-496B-90CD-49AF0945CEE8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE0854B8-9978-485F-B616-649367896A97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE0854B8-9978-485F-B616-649367896A97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE0854B8-9978-485F-B616-649367896A97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE0854B8-9978-485F-B616-649367896A97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44AA017E-96EA-496B-90CD-49AF0945CEE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44AA017E-96EA-496B-90CD-49AF0945CEE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44AA017E-96EA-496B-90CD-49AF0945CEE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44AA017E-96EA-496B-90CD-49AF0945CEE8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7F970A6D-EAAE-41C1-AF4B-6EA76BB7BD71}
+	EndGlobalSection
+EndGlobal

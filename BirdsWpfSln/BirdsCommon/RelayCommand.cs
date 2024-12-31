@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using System.Windows.Threading;
 
-namespace BirdsWPF.Core
+namespace BirdsCommon
 {
     /// <summary>Класс реализующий <see cref="ICommand"/>.<br/>
     /// Реализация взята из <see href="https://www.cyberforum.ru/wpf-silverlight/thread2390714-page4.html#post13535649"/>
@@ -17,23 +17,38 @@ namespace BirdsWPF.Core
         public event EventHandler? CanExecuteChanged;
 
         /// <summary>Конструктор команды.</summary>
-        /// <param name="execute">Выполняемый метод команды.</param>
+        /// <param name="execute">Исполняющий метод команды.</param>
         /// <param name="canExecute">Метод, возвращающий состояние команды.</param>
-        public RelayCommand(ExecuteHandler<object?> execute, CanExecuteHandler<object?>? canExecute = null)
+        public RelayCommand(ExecuteHandler<object?> execute, CanExecuteHandler<object?> canExecute)
         {
-            this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
-            this.canExecute = canExecute ?? (_ => true);
+            ArgumentNullException.ThrowIfNull(execute);
+            ArgumentNullException.ThrowIfNull(canExecute);
+            this.execute = execute;
+            this.canExecute = canExecute;
 
             requerySuggested = (o, e) => Invalidate();
             CommandManager.RequerySuggested += requerySuggested;
         }
 
-        /// <inheritdoc cref="RelayCommand(ExecuteHandler, CanExecuteHandler)"/>
-        public RelayCommand(ExecuteHandler execute, CanExecuteHandler? canExecute = null)
+        /// <inheritdoc cref="RelayCommand(ExecuteHandler{object?}, CanExecuteHandler{object?})"/>
+        public RelayCommand(ExecuteHandler<object?> execute)
+            :this(execute, _ => true)
+        { }
+
+        /// <inheritdoc cref="RelayCommand(ExecuteHandler{object?}, CanExecuteHandler{object?})"/>
+        public RelayCommand(ExecuteHandler execute, CanExecuteHandler canExecute)
                 : this
                 (
                       p => execute(),
-                      canExecute is null ? null : p => canExecute()
+                      (canExecute is null ? null : p => canExecute())!
+                )
+        { }
+
+        /// <inheritdoc cref="RelayCommand(ExecuteHandler{object?}, CanExecuteHandler{object?})"/>
+        public RelayCommand(ExecuteHandler execute)
+                : this
+                (
+                      p => execute()
                 )
         { }
 
@@ -46,7 +61,7 @@ namespace BirdsWPF.Core
             if (dispatcher.CheckAccess())
                 Invalidate();
             else
-                dispatcher.BeginInvoke((Action)Invalidate);
+                dispatcher.BeginInvoke(Invalidate);
         }
         private void Invalidate()
             => CanExecuteChanged?.Invoke(this, EventArgs.Empty);

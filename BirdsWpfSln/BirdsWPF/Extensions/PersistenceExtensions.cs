@@ -1,7 +1,7 @@
-﻿using BirdsWPF.Data;
+﻿using BirdsCommon;
+using BirdsWPF.Data;
 using BirdsWPF.Repositories.Abstract;
 using BirdsWPF.Repositories.Bases;
-using BirdsWPF.Services.Abstracts;
 using BirdsWPF.Services.Bases;
 using BirdsWPF.ViewModels;
 using BirdsWPF.Views.Windows;
