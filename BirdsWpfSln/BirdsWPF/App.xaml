@@ -10,11 +10,11 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/wwwroot/Themes/MenuButtonTheme.xaml" />
-                <ResourceDictionary Source="/wwwroot/Themes/CSButtonTheme.xaml" />
-                <ResourceDictionary Source="/wwwroot/Themes/SetButtonTheme.xaml" />
-                <ResourceDictionary Source="/wwwroot/Themes/ToggleButtonTheme.xaml" />
-                <ResourceDictionary Source="/wwwroot/Themes/ComboboxTheme.xaml" />
+                <ResourceDictionary Source="wwwroot/Themes/MenuButtonTheme.xaml" />
+                <ResourceDictionary Source="wwwroot/Themes/CSButtonTheme.xaml" />
+                <ResourceDictionary Source="wwwroot/Themes/SetButtonTheme.xaml" />
+                <ResourceDictionary Source="wwwroot/Themes/ToggleButtonTheme.xaml" />
+                <ResourceDictionary Source="wwwroot/Themes/ComboboxTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <local:MainBirdsViewModel x:Key="mainVM"/>
             <DataTemplate DataType="{x:Type vm:AddBirdViewModel}">

@@ -71,7 +71,9 @@
                  FontSize="20"
                  Background="Transparent"
                  Text="{Binding Arrival, 
-                                StringFormat=dd.MM.yyyy}"
+                                StringFormat=dd.MM.yyyy,
+                                NotifyOnSourceUpdated=True, 
+                                UpdateSourceTrigger=PropertyChanged}"
                  CaretBrush="AliceBlue"
                  Margin="0 0 0 0" />
 

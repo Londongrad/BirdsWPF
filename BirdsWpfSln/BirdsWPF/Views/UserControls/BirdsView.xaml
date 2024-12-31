@@ -91,12 +91,24 @@
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center" />
 
-                            <TextBlock Text="{Binding Departure, StringFormat=dd.MM.yyyy}"
+                            <TextBlock Text="{Binding Departure}"
                                        Margin="0 0 20 0"
                                        Foreground="White"
                                        FontSize="24"
                                        VerticalAlignment="Center"
-                                       HorizontalAlignment="Center" />
+                                       HorizontalAlignment="Center">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsActive}"
+                                                         Value="True">
+                                                <Setter Property="Visibility"
+                                                        Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
 
                             <StackPanel>
                                 <StackPanel.Style>
