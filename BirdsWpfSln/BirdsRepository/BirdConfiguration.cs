@@ -25,12 +25,15 @@ namespace BirdsRepository
             builder.Property(c => c.Departure)
                 .HasMaxLength(20);
 
+            builder.Property(c => c.IsActive)
+                .HasDefaultValue(true);
+
             builder.HasData(
-                new Bird() { Id = 1, Arrival = DateOnly.Parse("19.01.2001", CultureInfo.GetCultureInfo("ru-ru")), Description = "", Name = "Большак 1", IsActive=true },
-                new Bird() { Id = 2, Arrival = DateOnly.Parse("19.01.2001", CultureInfo.GetCultureInfo("ru-ru")), Description = "", Name = "Большак 3", IsActive=true  },
-                new Bird() { Id = 3, Arrival = DateOnly.Parse("19.01.2001", CultureInfo.GetCultureInfo("ru-ru")), Description = "", Name = "Большак 5", IsActive=true  },
-                new Bird() { Id = 4, Arrival = DateOnly.Parse("19.01.2001", CultureInfo.GetCultureInfo("ru-ru")), Description = "", Name = "Большак 78", IsActive=true  },
-                new Bird() { Id = 5, Arrival = DateOnly.Parse("19.01.2001", CultureInfo.GetCultureInfo("ru-ru")), Description = "", Name = "Большак 99", IsActive=true  });
+                new Bird() { Id = 1, Arrival = DateOnly.Parse("19.01.2001", CultureInfo.GetCultureInfo("ru-ru")), Description = "", Name = "Большак 1" },
+                new Bird() { Id = 2, Arrival = DateOnly.Parse("19.01.2001", CultureInfo.GetCultureInfo("ru-ru")), Description = "", Name = "Большак 3" },
+                new Bird() { Id = 3, Arrival = DateOnly.Parse("19.01.2001", CultureInfo.GetCultureInfo("ru-ru")), Description = "", Name = "Большак 5" },
+                new Bird() { Id = 4, Arrival = DateOnly.Parse("19.01.2001", CultureInfo.GetCultureInfo("ru-ru")), Description = "", Name = "Большак 78" },
+                new Bird() { Id = 5, Arrival = DateOnly.Parse("19.01.2001", CultureInfo.GetCultureInfo("ru-ru")), Description = "", Name = "Большак 99" });
         }
     }
 }
