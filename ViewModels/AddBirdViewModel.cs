@@ -30,7 +30,7 @@ namespace BirdsWPF.ViewModels
                 };
                 await birdRepository.AddAsync(bird);
             },
-            _ => Name is not null
+            bird => Name != ""
         );
         #endregion
     }
