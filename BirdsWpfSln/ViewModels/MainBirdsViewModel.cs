@@ -14,16 +14,17 @@ namespace BirdsViewModels
         public MainBirdsViewModel(IRepository<Bird> birdsRepository)
         {
             this.birdsRepository = birdsRepository;
-            birdsVM = new(birdsRepository);
+            Current = birdsVM = new(birdsRepository);
             addBirdVM = new(birdsRepository);
-            privateBirds = birdsRepository.GetObservableCollection();
-            Birds = new(privateBirds);
+            //privateBirds = birdsRepository.GetObservableCollection();
+            //Birds = new(privateBirds);
+            Birds = birdsRepository.GetObservableCollection();
         }
 
         public async Task LoadAsync() => await birdsRepository.LoadAsync();
 
 
-        private readonly ObservableCollection<Bird> privateBirds;
+        //private readonly ObservableCollection<Bird> privateBirds;
         public ReadOnlyObservableCollection<Bird> Birds { get; }
 
         private static readonly ReadOnlyCollection<string> privateBirdNameGroups
@@ -40,12 +41,16 @@ namespace BirdsViewModels
             {
                 // Здесь нужна индикация выполнения метода?
 
+                // Создание клона, чтобы внесённые изменения отобразились только после сохранения в Репозитории.
                 Bird bird1 = bird.Clone();
+
+                // Внесение изменений в клон.
                 bird1.Departure = Departure;
                 bird1.IsActive = false;
 
-                Bird bird2 = await birdsRepository.UpdateAsync(bird);
-                //Birds.Replace(b => b == bird1, bird2);
+                // Сохранение в Репозитории.
+                // Измененённая сущность автоматически заменит текущую после успешного сохранения.
+                Bird bird2 = await birdsRepository.UpdateAsync(bird1);
             },
             bird => bird.IsActive
         );
@@ -66,7 +71,9 @@ namespace BirdsViewModels
         {
             object? curr;
             if (t == typeof(BirdsViewModel))
+            {
                 curr = birdsVM;
+            }
             else if (t == typeof(AddBirdViewModel))
             {
                 curr = addBirdVM;

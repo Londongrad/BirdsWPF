@@ -62,30 +62,43 @@ namespace BirdsRepository
             return GetObservableCollection().ToList().Select(b => b);
         });
 
-        public ObservableCollection<Bird> GetObservableCollection()
+        private ReadOnlyObservableCollection<Bird>? birdsReadOnlyObservableCollection;
+        public ReadOnlyObservableCollection<Bird> GetObservableCollection()
         {
-            return birds.Local.ToObservableCollection();
+            if (birdsReadOnlyObservableCollection is null)
+            {
+                birdsReadOnlyObservableCollection = new(birds.Local.ToObservableCollection());
+            }
+            return birdsReadOnlyObservableCollection;
         }
 
         public async Task<Bird> UpdateAsync(Bird bird) => await Task.Run(() =>
         {
+            // Переменная для новой сущности с обновлёнными данными.
             Bird @new;
-            using (DbContext context = createContext())
+
+            // Обновление записи в БД через другой, одноразовый Контекст БД.
+            using (DbContext context = createContext()) // Создание одноразового Контекста БД.
             {
                 DbSet<Bird> birds = context.Set<Bird>();
+
+                // Поиск сущности по ключу (Id). Если нет такой сущности, то выкидывание исключения. 
                 @new = birds.Find(bird.Id) ?? throw new Exception("Записи с таким Id нет.");
 
-                @new.Name = bird.Name;
-                @new.Description = bird.Description;
-                @new.Arrival = bird.Arrival;
-                @new.Departure = bird.Departure;
-                @new.IsActive = false;
+                // Перезапись данных в сущность полученную из нового Контекста.
+                birds.Entry(@new).CurrentValues.SetValues(bird);
+
+                //@new.Name = bird.Name;
+                //@new.Description = bird.Description;
+                //@new.Arrival = bird.Arrival;
+                //@new.Departure = bird.Departure;
+                //@new.IsActive = false;
 
                 birds.Update(@new);
                 context.SaveChanges();
             }
             {
-                GetObservableCollection().ReplaceOrAdd(b => b.Id == bird.Id, @new);
+                birds.Local.ToObservableCollection().ReplaceOrAdd(b => b.Id == bird.Id, @new);
                 birds.Local.FindEntry(bird.Id)!.State = EntityState.Unchanged;
             }
 
