@@ -2,7 +2,7 @@
 
 namespace BirdsCommon
 {
-    public  abstract partial class ViewModelBase : BaseInpc
+    public abstract partial class ViewModelBase : BaseInpc
     {
         private readonly Dictionary<string, object?> _properties = new();
 

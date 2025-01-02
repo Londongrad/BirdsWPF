@@ -7,6 +7,12 @@ namespace BirdsCommon
 {
     public static partial class CollectionBindingHelper
     {
+        /// <summary>
+        /// Нужно чтобы ObservableCollection можно было обновлять из любого потока. <br/>
+        /// Без этого методы обновления БД в Репозитории будут выкидывать исключения. <br/>
+        /// Это специфика платформы WPF. В UWP, например, в таком нет необходимости.
+        /// </summary>
+        /// <param name="collection"></param>
         public static void EnableCollectionSynchronization(this ICollection collection)
             => EnableCollectionSynchronization(collection, Timeout.InfiniteTimeSpan);
 

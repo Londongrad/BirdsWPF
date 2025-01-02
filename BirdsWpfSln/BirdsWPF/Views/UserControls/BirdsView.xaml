@@ -9,7 +9,7 @@
              d:DesignHeight="450"
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type=vm:BirdsViewModel, IsDesignTimeCreatable=False}">
-    <ScrollViewer VerticalScrollBarVisibility="Visible"
+    <ScrollViewer VerticalScrollBarVisibility="Hidden"
                   HorizontalScrollBarVisibility="Hidden"
                   Focusable="False">
 
