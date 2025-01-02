@@ -27,10 +27,8 @@
                   HorizontalContentAlignment="Center"
                   FontSize="20"
                   Margin="0 0 0 0"
-                  ItemsSource="{Binding Birds, Mode=OneWay, Source={StaticResource mainVM}}"
-                  SelectedValue="{Binding Name}"
-                  SelectedValuePath="Name"
-                  DisplayMemberPath="Name">
+                  ItemsSource="{Binding BirdNameGroups, Mode=OneWay, Source={StaticResource mainVM}}"
+                  SelectedValue="{Binding Name}">
         </ComboBox>
 
         <TextBlock Text="Description"

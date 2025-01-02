@@ -16,7 +16,9 @@
                 <ResourceDictionary Source="wwwroot/Themes/ToggleButtonTheme.xaml" />
                 <ResourceDictionary Source="wwwroot/Themes/ComboboxTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            
             <local:MainBirdsViewModel x:Key="mainVM"/>
+            
             <DataTemplate DataType="{x:Type vm:AddBirdViewModel}">
                 <vctrls:AddBirdView />
             </DataTemplate>

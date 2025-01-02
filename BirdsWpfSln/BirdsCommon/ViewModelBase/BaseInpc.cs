@@ -6,6 +6,7 @@ namespace BirdsCommon
     /// <summary>Базовый класс с реализацией <see cref="INotifyPropertyChanged"/>.</summary>
     public abstract class BaseInpc : INotifyPropertyChanged
     {
+        ///<summary>Событие для извещения об изменения свойства</summary>
         /// <inheritdoc cref="INotifyPropertyChanged"/>
         public event PropertyChangedEventHandler? PropertyChanged;
 

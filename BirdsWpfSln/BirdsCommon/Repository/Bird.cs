@@ -1,6 +1,6 @@
 ﻿namespace BirdsCommon.Repository
 {
-    /// <summary>Имутабельный класс для Bird (Птицы ???).</summary>
+    /// <summary>Имутабельный класс для Bird (Птица.).</summary>
     public record Bird : IdDto
     {
         /// <summary>Имя.</summary>
@@ -9,13 +9,14 @@
         /// <summary>Описание.</summary>
         public string? Description { get; set; }
 
-        /// <summary>Прибытие ???</summary>
-        public DateOnly Arrival { get; set; }
+        /// <summary>Прибытие. Для простоты ввода по умолчанию установлена текущая дата. <br/>
+        /// (Чтобы руками не заполнять поле)</summary>
+        public DateOnly Arrival { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
-        /// <summary>Отправление ???</summary>
+        /// <summary>Отправление.</summary>
         public DateOnly Departure { get; set; }
 
-        /// <summary>Активная Птица ???</summary>
-        public bool IsActive { get; set; }
+        /// <summary>Активная Птица.</summary>
+        public bool IsActive { get; set; } = true;
     }
 }
