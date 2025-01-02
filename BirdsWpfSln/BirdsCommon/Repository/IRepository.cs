@@ -18,9 +18,9 @@ namespace BirdsCommon.Repository
         /// <remarks>Если не удалось удалить, то выкидывается исключение.</remarks>
         Task DeleteAsync(int id);
 
-        /// <summary>Получение всех записей.</summary>
-        /// <returns>Последовательность <see cref="TId"/>.</returns>
-        Task<IEnumerable<TId>> GetAllAsync();
+        ///// <summary>Получение всех записей.</summary>
+        ///// <returns>Последовательность <see cref="TId"/>.</returns>
+        //Task<IEnumerable<TId>> GetAllAsync();
 
 
         /// <summary>Обновление записи Репозитория.</summary>
@@ -30,7 +30,7 @@ namespace BirdsCommon.Repository
         /// <remarks>Если не удалось обновить или создать экземпляр, то выкдывается исключение.</remarks>
         Task<TId> UpdateAsync(TId idDto);
 
-        ObservableCollection<TId> GetObservableCollection();
+        ReadOnlyObservableCollection<TId> GetObservableCollection();
 
         Task LoadAsync();
     }

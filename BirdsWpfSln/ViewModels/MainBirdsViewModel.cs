@@ -20,12 +20,23 @@ namespace BirdsViewModels
             this.birdsRepository = birdsRepository;
             birdsVM = new(birdsRepository);
             Current = addBirdVM = new(birdsRepository);
-            privateBirds = birdsRepository.GetObservableCollection();
-            Birds = new(privateBirds);
+            addBirdVM = new(birdsRepository);
+            //privateBirds = birdsRepository.GetObservableCollection();
+            //Birds = new(privateBirds);
+            Birds = birdsRepository.GetObservableCollection();
         }
 
-        /// <summary>Предоставляет статическую коллекцию <see cref="privateBirdNameGroups"/>. 
-        /// Можно было обойтись статическим полем, но для облегчения привязок создано это прокси свойство.</summary>
+        public async Task LoadAsync() => await birdsRepository.LoadAsync();
+
+
+        //private readonly ObservableCollection<Bird> privateBirds;
+        public ReadOnlyObservableCollection<Bird> Birds { get; }
+
+        private static readonly ReadOnlyCollection<string> privateBirdNameGroups
+            = Array.AsReadOnly(["Nuthatch", "Great tit", "Black-capped chickadee", "Sparrow", "Amadina", "All of them", "Only inactive", "Only active"]);
+
+        /// <summary>ГЏГ°ГҐГ¤Г®Г±ГІГ ГўГ«ГїГҐГІ Г±ГІГ ГІГЁГ·ГҐГ±ГЄГіГѕ ГЄГ®Г«Г«ГҐГЄГ¶ГЁГѕ <see cref="privateBirdNameGroups"/>. 
+        /// ГЊГ®Г¦Г­Г® ГЎГ»Г«Г® Г®ГЎГ®Г©ГІГЁГ±Гј Г±ГІГ ГІГЁГ·ГҐГ±ГЄГЁГ¬ ГЇГ®Г«ГҐГ¬, Г­Г® Г¤Г«Гї Г®ГЎГ«ГҐГЈГ·ГҐГ­ГЁГї ГЇГ°ГЁГўГїГ§Г®ГЄ Г±Г®Г§Г¤Г Г­Г® ГЅГІГ® ГЇГ°Г®ГЄГ±ГЁ Г±ГўГ®Г©Г±ГІГўГ®.</summary>
         public ReadOnlyCollection<string> BirdNameGroups => privateBirdNameGroups;
 
         #region Properties
@@ -47,7 +58,9 @@ namespace BirdsViewModels
         {
             object? curr;
             if (t == typeof(BirdsViewModel))
+            {
                 curr = birdsVM;
+            }
             else if (t == typeof(AddBirdViewModel))
             {
                 curr = addBirdVM;

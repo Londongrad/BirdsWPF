@@ -12,5 +12,4 @@ namespace BirdsWPF
             return new MainBirdsViewModel(new  DbBirdsRepository ("birds.db"));
         }
     }
-
 }
