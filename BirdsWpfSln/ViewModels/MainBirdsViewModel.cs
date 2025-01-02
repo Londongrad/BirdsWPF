@@ -71,14 +71,9 @@ namespace BirdsViewModels
         (
             async bird =>
             {
-                // Здесь нужна индикация выполнения метода?
-
-                Bird bird1 = bird.Clone();
-                bird1.Departure = Departure;
-                bird1.IsActive = false;
-
-                Bird bird2 = await birdsRepository.UpdateAsync(bird);
-                //Birds.Replace(b => b == bird1, bird2);
+                bird.Departure = Departure;
+                bird.IsActive = false;
+                await birdsRepository.UpdateAsync(bird);
             },
             bird => bird.IsActive
         );

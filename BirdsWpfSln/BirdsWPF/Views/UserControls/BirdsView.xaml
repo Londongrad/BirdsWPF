@@ -4,11 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:view="clr-namespace:BirdsWPF.Views.UserControls"
-             xmlns:vm="clr-namespace:BirdsViewModels;assembly=BirdsViewModels" xmlns:rep="clr-namespace:BirdsCommon.Repository;assembly=BirdsCommon"
+             xmlns:vm="clr-namespace:BirdsViewModels;assembly=BirdsViewModels"
+             xmlns:rep="clr-namespace:BirdsCommon.Repository;assembly=BirdsCommon"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance Type=vm:BirdsViewModel, IsDesignTimeCreatable=False}">
+             d:DataContext="{d:DesignInstance Type=vm:BirdsViewModel, 
+                                              IsDesignTimeCreatable=False}">
     <ScrollViewer VerticalScrollBarVisibility="Hidden"
                   HorizontalScrollBarVisibility="Hidden"
                   Focusable="False">
@@ -49,14 +51,19 @@
 
             </StackPanel>
 
-            <ItemsControl ItemsSource="{Binding Birds, Mode=OneWay, Source={StaticResource mainVM}}"
+            <ItemsControl ItemsSource="{Binding Birds, 
+                                                Mode=OneWay, 
+                                                Source={StaticResource mainVM}}"
                           Margin="0 0 0 0">
                 <d:ItemsControl.ItemsSource>
                     <x:Array Type="rep:Bird">
-                        <rep:Bird Name="qwerty"/>
-                        <rep:Bird Name="asdfg" IsActive="True"/>
-                        <rep:Bird Name="zxcvb"/>
-                        <rep:Bird Name="yuiop" IsActive="True"/>
+                        <rep:Bird Name="qwerty"
+                                  IsActive="False" />
+                        <rep:Bird Name="asdfg"
+                                  IsActive="True" />
+                        <rep:Bird Name="zxcvb" />
+                        <rep:Bird Name="yuiop"
+                                  IsActive="True" />
                     </x:Array>
                 </d:ItemsControl.ItemsSource>
                 <ItemsControl.ItemTemplate>
@@ -91,7 +98,7 @@
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center" />
 
-                            <TextBlock Text="{Binding Departure}"
+                            <TextBlock Text="{Binding Departure, StringFormat=dd.MM.yyyy}"
                                        Margin="0 0 20 0"
                                        Foreground="White"
                                        FontSize="24"
@@ -122,7 +129,7 @@
                                         </Style.Triggers>
                                     </Style>
                                 </StackPanel.Style>
-                                
+
                                 <Button Style="{StaticResource CSButtons}"
                                         BorderThickness="0"
                                         Background="#FF483D8B"
@@ -132,7 +139,9 @@
                                         Foreground="White"
                                         HorizontalContentAlignment="Center"
                                         VerticalContentAlignment="Center"
-                                        Command="{Binding DeleteBirdCommand, Mode=OneWay, Source={StaticResource mainVM}}"
+                                        Command="{Binding DeleteBirdCommand, 
+                                                          Mode=OneWay, 
+                                                          Source={StaticResource mainVM}}"
                                         CommandParameter="{Binding}">
                                 </Button>
 
@@ -150,7 +159,7 @@
                                                         StringFormat=dd.MM.yyyy,
                                                         Mode=OneTime,
                                                         RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:BirdsView}}}"
-                                         CaretBrush="AliceBlue"/>
+                                         CaretBrush="AliceBlue" />
 
                             </StackPanel>
                         </StackPanel>
