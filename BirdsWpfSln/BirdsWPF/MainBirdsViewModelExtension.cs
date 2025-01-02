@@ -9,7 +9,7 @@ namespace BirdsWPF
     {
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            return new MainBirdsViewModel(new  DbBirdsRepository ("birds.db"));
+            return new MainBirdsViewModel(new DbBirdsRepository ("birds.db"));
         }
     }
 }

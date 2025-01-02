@@ -23,8 +23,6 @@ namespace BirdsViewModels
 
             Birds = birdsRepository.GetObservableCollection();
         }
-
-
         /// <summary>Предоставляет статическую коллекцию <see cref="privateBirdNameGroups"/>. 
         /// Можно было обойтись статическим полем, но для облегчения привязок создано это прокси свойство.</summary>
         public ReadOnlyCollection<string> BirdNameGroups => privateBirdNameGroups;
@@ -75,7 +73,6 @@ namespace BirdsViewModels
             async bird =>
             {
                 // Здесь нужна индикация выполнения метода?
-
                 // Создание клона, чтобы внесённые изменения отобразились только после сохранения в Репозитории.
                 Bird bird1 = bird.Clone();
 

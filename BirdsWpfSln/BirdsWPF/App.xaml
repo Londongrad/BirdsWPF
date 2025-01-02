@@ -5,8 +5,6 @@
              xmlns:vctrls="clr-namespace:BirdsWPF.Views.UserControls"
              xmlns:local="clr-namespace:BirdsWPF"
              Startup="OnStartup">
-             <!--xmlns:views="clr-namespace:BirdsWPF.Views.UserControls"-->
-             <!--xmlns:viewModels="clr-namespace:BirdsWPF.ViewModels"-->
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
