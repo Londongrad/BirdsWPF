@@ -155,10 +155,12 @@
                                          HorizontalContentAlignment="Center"
                                          FontSize="20"
                                          Background="Transparent"
-                                         Text="{Binding DataContext.Departure,
+                                         Text="{Binding Departure,
                                                         StringFormat=dd.MM.yyyy,
                                                         Mode=OneTime,
-                                                        RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type view:BirdsView}}}"
+                                                        Source={StaticResource mainVM},
+                                                        NotifyOnSourceUpdated=True,
+                                                        UpdateSourceTrigger=PropertyChanged}"
                                          CaretBrush="AliceBlue" />
 
                             </StackPanel>
