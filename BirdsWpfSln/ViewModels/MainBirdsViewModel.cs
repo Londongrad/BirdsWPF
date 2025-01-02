@@ -20,11 +20,9 @@ namespace BirdsViewModels
             birdsVM = new(birdsRepository);
             Current = addBirdVM = new(birdsRepository);
             addBirdVM = new(birdsRepository);
-            //privateBirds = birdsRepository.GetObservableCollection();
-            //Birds = new(privateBirds);
+
             Birds = birdsRepository.GetObservableCollection();
         }
-
         /// <summary>Предоставляет статическую коллекцию <see cref="privateBirdNameGroups"/>. 
         /// Можно было обойтись статическим полем, но для облегчения привязок создано это прокси свойство.</summary>
         public ReadOnlyCollection<string> BirdNameGroups => privateBirdNameGroups;
@@ -75,12 +73,16 @@ namespace BirdsViewModels
             async bird =>
             {
                 // Здесь нужна индикация выполнения метода?
+                // Создание клона, чтобы внесённые изменения отобразились только после сохранения в Репозитории.
                 Bird bird1 = bird.Clone();
+
+                // Внесение изменений в клон.
                 bird1.Departure = Departure;
                 bird1.IsActive = false;
 
+                // Сохранение в Репозитории.
+                // Измененённая сущность автоматически заменит текущую после успешного сохранения.
                 Bird bird2 = await birdsRepository.UpdateAsync(bird1);
-                //Birds.Replace(b => b == bird1, bird2);
             },
             bird => bird.IsActive
         );
