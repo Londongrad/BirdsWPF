@@ -10,7 +10,6 @@ namespace BirdsViewModels
         private readonly IRepository<Bird> birdsRepository;
         private readonly BirdsViewModel birdsVM;
         private readonly AddBirdViewModel addBirdVM;
-        private readonly ObservableCollection<Bird> privateBirds;
         private static readonly ReadOnlyCollection<string> privateBirdNameGroups
             = Array.AsReadOnly(["Nuthatch", "Great tit", "Black-capped chickadee", "Sparrow", "Amadina", "All of them", "Only inactive", "Only active"]);
         #endregion
@@ -21,22 +20,13 @@ namespace BirdsViewModels
             birdsVM = new(birdsRepository);
             Current = addBirdVM = new(birdsRepository);
             addBirdVM = new(birdsRepository);
-            //privateBirds = birdsRepository.GetObservableCollection();
-            //Birds = new(privateBirds);
+
             Birds = birdsRepository.GetObservableCollection();
         }
 
-        public async Task LoadAsync() => await birdsRepository.LoadAsync();
 
-
-        //private readonly ObservableCollection<Bird> privateBirds;
-        public ReadOnlyObservableCollection<Bird> Birds { get; }
-
-        private static readonly ReadOnlyCollection<string> privateBirdNameGroups
-            = Array.AsReadOnly(["Nuthatch", "Great tit", "Black-capped chickadee", "Sparrow", "Amadina", "All of them", "Only inactive", "Only active"]);
-
-        /// <summary>Ïðåäîñòàâëÿåò ñòàòè÷åñêóþ êîëëåêöèþ <see cref="privateBirdNameGroups"/>. 
-        /// Ìîæíî áûëî îáîéòèñü ñòàòè÷åñêèì ïîëåì, íî äëÿ îáëåã÷åíèÿ ïðèâÿçîê ñîçäàíî ýòî ïðîêñè ñâîéñòâî.</summary>
+        /// <summary>Предоставляет статическую коллекцию <see cref="privateBirdNameGroups"/>. 
+        /// Можно было обойтись статическим полем, но для облегчения привязок создано это прокси свойство.</summary>
         public ReadOnlyCollection<string> BirdNameGroups => privateBirdNameGroups;
 
         #region Properties
@@ -84,9 +74,18 @@ namespace BirdsViewModels
         (
             async bird =>
             {
-                bird.Departure = Departure;
-                bird.IsActive = false;
-                await birdsRepository.UpdateAsync(bird);
+                // Здесь нужна индикация выполнения метода?
+
+                // Создание клона, чтобы внесённые изменения отобразились только после сохранения в Репозитории.
+                Bird bird1 = bird.Clone();
+
+                // Внесение изменений в клон.
+                bird1.Departure = Departure;
+                bird1.IsActive = false;
+
+                // Сохранение в Репозитории.
+                // Измененённая сущность автоматически заменит текущую после успешного сохранения.
+                Bird bird2 = await birdsRepository.UpdateAsync(bird1);
             },
             bird => bird.IsActive
         );
