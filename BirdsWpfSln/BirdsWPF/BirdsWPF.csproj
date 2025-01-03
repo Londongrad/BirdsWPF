@@ -44,6 +44,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="wwwroot\Images\awake_adium_bird_20653.ico" />
+    <None Remove="wwwroot\Images\ex.png" />
+    <None Remove="wwwroot\Images\file_basket_red.png" />
+    <None Remove="wwwroot\Images\ok.png" />
     <None Remove="wwwroot\Images\shutdown.png" />
   </ItemGroup>
 
@@ -66,6 +70,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="wwwroot\Images\awake_adium_bird_20653.ico" />
+    <Resource Include="wwwroot\Images\ex.png" />
+    <Resource Include="wwwroot\Images\file_basket_red.png" />
+    <Resource Include="wwwroot\Images\ok.png" />
     <Resource Include="wwwroot\Images\shutdown.png" />
   </ItemGroup>
 

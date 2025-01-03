@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:view="clr-namespace:BirdsWPF.Views.UserControls"
+             xmlns:local="clr-namespace:BirdsWPF.Views.UserControls"
              xmlns:vm="clr-namespace:BirdsViewModels;assembly=BirdsViewModels"
              xmlns:rep="clr-namespace:BirdsCommon.Repository;assembly=BirdsCommon"
              mc:Ignorable="d"
@@ -57,12 +57,12 @@
                           Margin="0 0 0 0">
                 <d:ItemsControl.ItemsSource>
                     <x:Array Type="rep:Bird">
-                        <rep:Bird Name="qwerty"
+                        <local:Bird Name="qwerty"
                                   IsActive="False" />
-                        <rep:Bird Name="asdfg"
+                        <local:Bird Name="asdfg"
                                   IsActive="True" />
-                        <rep:Bird Name="zxcvb" />
-                        <rep:Bird Name="yuiop"
+                        <local:Bird Name="zxcvb" />
+                        <local:Bird Name="yuiop"
                                   IsActive="True" />
                     </x:Array>
                 </d:ItemsControl.ItemsSource>
@@ -164,6 +164,21 @@
                                          CaretBrush="AliceBlue" />
 
                             </StackPanel>
+                            <Button Style="{StaticResource CSButtons}"
+                                        BorderThickness="0"
+                                        Background="#FF483D8B"
+                                        Padding="5" Margin="5,0,0,0"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        Command="{Binding RemoveBirdCommand, 
+                                                          Mode=OneWay, 
+                                                          Source={StaticResource mainVM}}"
+                                        CommandParameter="{Binding}"
+                                    Height="{Binding ActualWidth, Mode=OneWay, RelativeSource={RelativeSource Self}}">
+                                <Image VerticalAlignment="Center" HorizontalAlignment="Center"
+                                       Source="/wwwroot/Images/file_basket_red.png" Width="30"/>
+                            </Button>
+
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

@@ -60,31 +60,33 @@ namespace BirdsViewModels
             NavigateTo(curr);
         });
 
-        public RelayCommand AddBirdCommand => GetCommand<Bird>
+        public RelayCommand AddBirdCommand => GetCommand<AddBirdViewModel>
         (
-            async bird =>
+            async birdVM =>
             {
-                await birdsRepository.AddAsync(bird);
+                await birdsRepository.AddAsync(new Bird(birdVM.Id, birdVM.Name, birdVM.Description, birdVM.Arrival, birdVM.Departure, birdVM.IsActive));
+                birdVM.Clear();
             },
-            bird => !string.IsNullOrWhiteSpace(bird.Name)
+            birdVM => !string.IsNullOrWhiteSpace(birdVM.Name)
         );
         public RelayCommand DeleteBirdCommand => GetCommand<Bird>
         (
             async bird =>
             {
-                // Здесь нужна индикация выполнения метода?
-                // Создание клона, чтобы внесённые изменения отобразились только после сохранения в Репозитории.
-                Bird bird1 = bird.Clone();
 
-                // Внесение изменений в клон.
-                bird1.Departure = Departure;
-                bird1.IsActive = false;
+                // Создание клона с внесёнными изменениями, которые отобразятся только после сохранения в Репозитории.
+                Bird bird1 = new (bird.Id, bird.Name, bird.Description, bird.Arrival, bird.Departure, false);
 
-                // Сохранение в Репозитории.
-                // Измененённая сущность автоматически заменит текущую после успешного сохранения.
-                Bird bird2 = await birdsRepository.UpdateAsync(bird1);
+                await birdsRepository.UpdateAsync(bird1);
             },
             bird => bird.IsActive
+        );
+        public RelayCommand RemoveBirdCommand => GetCommand<Bird>
+        (
+            async bird =>
+            {
+                await birdsRepository.DeleteAsync(bird.Id);
+            }
         );
         #endregion
     }
