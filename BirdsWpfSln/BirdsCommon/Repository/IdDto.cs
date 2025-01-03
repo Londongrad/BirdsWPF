@@ -1,11 +1,9 @@
 ﻿namespace BirdsCommon.Repository
 {
     /// <summary>Базовый класс с идентификатором.</summary>
-    public record IdDto
+    public class IdDto(int id)
     {
-
         /// <summary>Целочисленный идентификатор.</summary>
-        public int Id { get; set; }
-
+        public int Id { get; } = id;
     }
 }

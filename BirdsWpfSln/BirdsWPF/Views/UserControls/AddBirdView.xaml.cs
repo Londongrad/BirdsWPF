@@ -1,4 +1,9 @@
-﻿using System.Windows.Controls;
+﻿using BirdsCommon.Repository;
+using BirdsViewModels;
+using System.Globalization;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace BirdsWPF.Views.UserControls
 {
@@ -9,7 +14,14 @@ namespace BirdsWPF.Views.UserControls
     {
         public AddBirdView()
         {
+            DataContextChanged += OnDataContextChanged;
             InitializeComponent();
+        }
+
+        private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            AddBirdViewModel? vm = (AddBirdViewModel)e.NewValue;
+            vm?.Clear();
         }
     }
 }

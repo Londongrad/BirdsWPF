@@ -23,6 +23,8 @@ namespace BirdsRepository
 
             builder.Property(c => c.Departure)
                 .HasMaxLength(20);
+
+            builder.Property(c => c.IsActive);
         }
     }
 }
