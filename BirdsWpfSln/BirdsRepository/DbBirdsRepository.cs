@@ -30,17 +30,20 @@ namespace BirdsRepository
 
         public async Task<Bird> AddAsync(Bird idDto) => await Task.Run(() =>
         {
+            // Добавление сущности через другой, одноразовый Контекст БД.
             using (DbContext context = createContext())
             {
                 DbSet<Bird> birds = context.Set<Bird>();
                 birds.Add(idDto);
                 context.SaveChanges();
             }
+            // Получение сущности в локальный кеш и её возврат.
             return birds.Find(idDto.Id) ?? throw new Exception("Не добавилась.");
         });
 
         public async Task DeleteAsync(int id) => await Task.Run(() =>
         {
+            // Удаление сущности через другой, одноразовый Контекст БД.
             using (DbContext context = createContext())
             {
                 DbSet<Bird> birds = context.Set<Bird>();
@@ -49,6 +52,7 @@ namespace BirdsRepository
                 context.SaveChanges();
             }
             {
+                // Обновление локального кеша, если там есть сущность с таким Id.
                 Bird? brd = birds.Find(id);
                 if (brd is not null)
                 {
@@ -65,44 +69,25 @@ namespace BirdsRepository
         private ReadOnlyObservableCollection<Bird>? birdsReadOnlyObservableCollection;
         public ReadOnlyObservableCollection<Bird> GetObservableCollection()
         {
-            if (birdsReadOnlyObservableCollection is null)
-            {
-                birdsReadOnlyObservableCollection = new(birds.Local.ToObservableCollection());
-            }
+            birdsReadOnlyObservableCollection ??= new(birds.Local.ToObservableCollection());
             return birdsReadOnlyObservableCollection;
         }
 
-        public async Task<Bird> UpdateAsync(Bird bird) => await Task.Run(() =>
+        public async Task UpdateAsync(Bird bird) => await Task.Run(() =>
         {
-            // Переменная для новой сущности с обновлёнными данными.
-            Bird @new;
-
             // Обновление записи в БД через другой, одноразовый Контекст БД.
             using (DbContext context = createContext()) // Создание одноразового Контекста БД.
             {
                 DbSet<Bird> birds = context.Set<Bird>();
 
-                // Поиск сущности по ключу (Id). Если нет такой сущности, то выкидывание исключения. 
-                @new = birds.Find(bird.Id) ?? throw new Exception("Записи с таким Id нет.");
-
-                // Перезапись данных в сущность полученную из нового Контекста.
-                birds.Entry(@new).CurrentValues.SetValues(bird);
-
-                //@new.Name = bird.Name;
-                //@new.Description = bird.Description;
-                //@new.Arrival = bird.Arrival;
-                //@new.Departure = bird.Departure;
-                //@new.IsActive = false;
-
-                birds.Update(@new);
-                context.SaveChanges();
+                _ = birds.Update(bird);
+                _ = context.SaveChanges();
             }
             {
-                birds.Local.ToObservableCollection().ReplaceOrAdd(b => b.Id == bird.Id, @new);
+                // Замена сущности в локальном кеше.
+                birds.Local.ToObservableCollection().ReplaceOrAdd(b => b.Id == bird.Id, bird);
                 birds.Local.FindEntry(bird.Id)!.State = EntityState.Unchanged;
             }
-
-            return @new;
         });
 
         public async Task LoadAsync() => await Task.Run(birds.Load);
