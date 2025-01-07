@@ -1,7 +1,10 @@
 ﻿using BirdsCommon;
 using BirdsCommon.Repository;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Reflection;
 
 namespace BirdsRepository
 {
@@ -85,10 +88,25 @@ namespace BirdsRepository
             }
             {
                 // Замена сущности в локальном кеше.
-                birds.Local.ToObservableCollection().ReplaceOrAdd(b => b.Id == bird.Id, bird);
-                birds.Local.FindEntry(bird.Id)!.State = EntityState.Unchanged;
+                //birds.Local.ToObservableCollection().ReplaceOrAdd(b => b.Id == bird.Id, bird);
+                //birds.Local.FindEntry(bird.Id)!.State = EntityState.Unchanged;
+
+                // Обновление сущности с уведомлением привязок через PropertyDescriptor об изменении Bird.IsActive.
+                // Вариант показан, как альтернативная реализация.
+                // В данной задаче, на практике, более лучшим вариантом будет замена сущности.
+                EntityEntry<Bird>? be = birds.Local.FindEntry(bird.Id);
+                be!.Reload();
+                Bird b = birds.Find(bird.Id) ?? throw new NullReferenceException();
+                OnIsActiveChanged(b);
             }
         });
+
+        private static readonly Action<object, EventArgs> isActiveChangedHandler =
+            typeof(PropertyDescriptor)
+            .GetMethod($"OnValueChanged", BindingFlags.Instance | BindingFlags.NonPublic)!
+            .CreateDelegate<Action<object, EventArgs>>(TypeDescriptor.GetProperties(typeof(Bird))[nameof(Bird.IsActive)]);
+        private static readonly PropertyChangedEventArgs args = new(string.Empty);
+        private static void OnIsActiveChanged(Bird b) => isActiveChangedHandler(b, args);
 
         public async Task LoadAsync() => await Task.Run(birds.Load);
     }
