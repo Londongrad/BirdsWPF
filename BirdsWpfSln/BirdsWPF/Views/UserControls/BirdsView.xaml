@@ -33,7 +33,9 @@
                           HorizontalContentAlignment="Center"
                           FontSize="20"
                           Margin="0 0 0 6"
-                          ItemsSource="{Binding BirdsNames}"
+                          ItemsSource="{Binding BirdNameGroups, 
+                                                Mode=OneWay, 
+                                                Source={StaticResource mainVM}}"
                           SelectedValue="{Binding Name}" />
 
                 <Button    Content="Show only"
