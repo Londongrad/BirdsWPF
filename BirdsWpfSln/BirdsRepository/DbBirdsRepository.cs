@@ -2,6 +2,7 @@
 using BirdsCommon.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Reflection;
@@ -97,16 +98,40 @@ namespace BirdsRepository
                 EntityEntry<Bird>? be = birds.Local.FindEntry(bird.Id);
                 be!.Reload();
                 Bird b = birds.Find(bird.Id) ?? throw new NullReferenceException();
-                OnIsActiveChanged(b);
+                //OnIsActiveChanged(b);
+                OnAllPropertiesChanged(b);
             }
         });
 
+        // Создание метода для уведомления об обновлении свойства Bird.IsActive
         private static readonly Action<object, EventArgs> isActiveChangedHandler =
             typeof(PropertyDescriptor)
             .GetMethod($"OnValueChanged", BindingFlags.Instance | BindingFlags.NonPublic)!
             .CreateDelegate<Action<object, EventArgs>>(TypeDescriptor.GetProperties(typeof(Bird))[nameof(Bird.IsActive)]);
         private static readonly PropertyChangedEventArgs args = new(string.Empty);
         private static void OnIsActiveChanged(Bird b) => isActiveChangedHandler(b, args);
+
+        // Создание метода для уведомления об обновлении всех свойств Bird
+        private static readonly ImmutableArray<Action<object, EventArgs>> allPropertiesChangedHandler;
+        static DbBirdsRepository()
+        {
+            var onValueChanged = typeof(PropertyDescriptor)
+                .GetMethod($"OnValueChanged", BindingFlags.Instance | BindingFlags.NonPublic)!;
+            allPropertiesChangedHandler = TypeDescriptor.GetProperties(typeof(Bird))
+                .Cast<PropertyDescriptor>()
+                .Select(pr => onValueChanged.CreateDelegate<Action<object, EventArgs>>(pr))
+                .ToImmutableArray();
+        }
+        // Метод обновляющий все привязки к Bird.
+        private static void OnAllPropertiesChanged(Bird b)
+        {
+            foreach (var p in allPropertiesChangedHandler)
+            {
+                p(b, args);
+            }
+        }
+
+
 
         public async Task LoadAsync() => await Task.Run(birds.Load);
     }
