@@ -15,8 +15,6 @@ namespace BirdsViewModels
             //Birds = birdRepository.GetObservableCollection();
         }
 
-        public async Task LoadAsync() => await birdRepository.LoadAsync();
-
 
         #region [ Properties ]
         public DateOnly Departure { get; } = DateOnly.FromDateTime(DateTime.Now);

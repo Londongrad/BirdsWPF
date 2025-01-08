@@ -33,7 +33,9 @@
                           HorizontalContentAlignment="Center"
                           FontSize="20"
                           Margin="0 0 0 6"
-                          ItemsSource="{Binding BirdsNames}"
+                          ItemsSource="{Binding BirdNameGroups, 
+                                                Mode=OneWay, 
+                                                Source={StaticResource mainVM}}"
                           SelectedValue="{Binding Name}" />
 
                 <Button    Content="Show only"
@@ -67,9 +69,10 @@
                     </x:Array>
                 </d:ItemsControl.ItemsSource>
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type rep:Bird}">
+                    <DataTemplate DataType="{x:Type vm:BirdVM}">
                         <StackPanel Orientation="Horizontal"
-                                    Margin="40 10 30 30">
+                                    Margin="40 10 30 30"
+                                    DataContext="{Binding Bird}">
                             <TextBlock Text="{Binding Name}"
                                        Margin="5 0 20 0"
                                        Foreground="White"
