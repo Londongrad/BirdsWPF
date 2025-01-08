@@ -159,10 +159,7 @@
                                          Background="Transparent"
                                          Text="{Binding Departure,
                                                         StringFormat=dd.MM.yyyy,
-                                                        Mode=OneTime,
-                                                        Source={StaticResource mainVM},
-                                                        NotifyOnSourceUpdated=True,
-                                                        UpdateSourceTrigger=PropertyChanged}"
+                                                        Source={StaticResource mainVM}}"
                                          CaretBrush="AliceBlue" />
 
                             </StackPanel>
