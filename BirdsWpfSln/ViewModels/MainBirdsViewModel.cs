@@ -11,7 +11,7 @@ namespace BirdsViewModels
         private readonly BirdsViewModel birdsVM;
         private readonly AddBirdViewModel addBirdVM;
         private static readonly ReadOnlyCollection<string> privateBirdNameGroups
-            = Array.AsReadOnly(["Nuthatch", "Great tit", "Black-capped chickadee", "Sparrow", "Amadina", "All of them", "Only inactive", "Only active"]);
+            = Array.AsReadOnly(["Nuthatch", "Great tit", "Black-capped chickadee", "Sparrow", "Amadina"]);
         private readonly INavigationService navigator;
         #endregion
 
@@ -19,12 +19,12 @@ namespace BirdsViewModels
         {
             this.birdsRepository = birdsRepository;
             birdsVM = new(birdsRepository);
-            addBirdVM = new(birdsRepository);
+            addBirdVM = new();
 
             Birds = birdsRepository.GetObservableCollection();
 
             navigator = this;
-            navigator.NavigateTo(addBirdVM = new(birdsRepository));
+            navigator.NavigateTo(addBirdVM = new());
             navigator.AddCreator(typeof(BirdsViewModel), () => this.birdsVM);
             navigator.AddCreator(typeof(AddBirdViewModel), () => this.addBirdVM);
         }
@@ -37,7 +37,7 @@ namespace BirdsViewModels
         public ReadOnlyObservableCollection<Bird> Birds { get; }
 
 
-        public DateOnly Departure { get; } = DateOnly.FromDateTime(DateTime.Now);
+        public DateOnly Departure { get; set; } = DateOnly.FromDateTime(DateTime.Now);
         #endregion
 
         #region Methods
@@ -63,7 +63,7 @@ namespace BirdsViewModels
             async bird =>
             {
                 // Создание клона с внесёнными изменениями, которые отобразятся только после сохранения в Репозитории.
-                Bird bird1 = new(bird.Id, bird.Name, bird.Description, bird.Arrival, bird.Departure, false);
+                Bird bird1 = new(bird.Id, bird.Name, bird.Description, bird.Arrival, Departure, false);
 
                 await birdsRepository.UpdateAsync(bird1);
             },

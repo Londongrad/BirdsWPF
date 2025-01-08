@@ -19,7 +19,6 @@ namespace BirdsViewModels
 
 
         #region [ Properties ]
-        public DateOnly Departure { get; } = DateOnly.FromDateTime(DateTime.Now);
 
         /// <summary>Какое-то непонятное свойство. Для чего оно? <br/>
         /// Это свойство определяло общее количесво сущностей в коллекции с последующим выводом на экран. <br/>

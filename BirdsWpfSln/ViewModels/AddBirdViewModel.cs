@@ -24,12 +24,8 @@ namespace BirdsViewModels
         /// <summary>Активная Птица.</summary>
         public bool IsActive { get => Get<bool>(); set => Set(value); }
 
-        // Можно удалить.
-        private readonly IRepository<Bird> birdRepository;
-
-        public AddBirdViewModel(IRepository<Bird> birdRepository)
+        public AddBirdViewModel()
         {
-            this.birdRepository = birdRepository;
             Clear();
         }
 
