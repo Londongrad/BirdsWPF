@@ -63,7 +63,7 @@ namespace BirdsViewModels
             async bird =>
             {
                 // Создание клона с внесёнными изменениями, которые отобразятся только после сохранения в Репозитории.
-                Bird bird1 = new(bird.Id, bird.Name, bird.Description, bird.Arrival, bird.Departure, false);
+                Bird bird1 = new(bird.Id, bird.Name, bird.Description, bird.Arrival, /*bird.*/Departure, false);
 
                 await birdsRepository.UpdateAsync(bird1);
             },
