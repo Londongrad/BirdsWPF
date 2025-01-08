@@ -3,7 +3,6 @@
     /// <summary>Имутабельный класс для Bird (Птица.).</summary>
     public class Bird(int id, string? name, string? description, DateOnly arrival, DateOnly departure, bool isActive) : IdDto(id)
     {
-
         /// <summary>Имя.</summary>
         public string? Name { get; } = name;
 
