@@ -58,7 +58,7 @@
                                                 Source={StaticResource mainVM}}"
                           Margin="0 0 0 0">
                 <d:ItemsControl.ItemsSource>
-                    <x:Array Type="rep:Bird">
+                    <x:Array Type="vm:BirdVM">
                         <local:Bird Name="qwerty"
                                   IsActive="False" />
                         <local:Bird Name="asdfg"
@@ -71,54 +71,56 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type vm:BirdVM}">
                         <StackPanel Orientation="Horizontal"
-                                    Margin="40 10 30 30"
+                                    Margin="40 10 30 30">
+                            <StackPanel Orientation="Horizontal"
                                     DataContext="{Binding Bird}">
-                            <TextBlock Text="{Binding Name}"
+                                <TextBlock Text="{Binding Name}"
                                        Margin="5 0 20 0"
                                        Foreground="White"
                                        FontSize="24"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center" />
 
-                            <TextBlock Text="{Binding Description}"
+                                <TextBlock Text="{Binding Description}"
                                        Margin="0 0 20 0"
                                        Foreground="White"
                                        FontSize="24"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center" />
 
-                            <TextBlock Text="{Binding Arrival, StringFormat=dd.MM.yyyy}"
+                                <TextBlock Text="{Binding Arrival, ConverterCulture=ru-ru}"
                                        Margin="0 0 20 0"
                                        Foreground="White"
                                        FontSize="24"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center" />
 
-                            <TextBlock Text="⚊"
+                                <TextBlock Text="⚊"
                                        Margin="0 0 20 0"
                                        Foreground="White"
                                        FontSize="24"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center" />
 
-                            <TextBlock Text="{Binding Departure, StringFormat=dd.MM.yyyy}"
+                                <TextBlock Text="{Binding Departure, ConverterCulture=ru-ru}"
                                        Margin="0 0 20 0"
                                        Foreground="White"
                                        FontSize="24"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsActive}"
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsActive}"
                                                          Value="True">
-                                                <Setter Property="Visibility"
+                                                    <Setter Property="Visibility"
                                                         Value="Collapsed" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </StackPanel>
 
                             <StackPanel>
                                 <StackPanel.Style>
@@ -158,12 +160,8 @@
                                          HorizontalContentAlignment="Center"
                                          FontSize="20"
                                          Background="Transparent"
-                                         Text="{Binding Departure,
-                                                        StringFormat=dd.MM.yyyy,
-                                                        Mode=OneTime,
-                                                        Source={StaticResource mainVM},
-                                                        NotifyOnSourceUpdated=True,
-                                                        UpdateSourceTrigger=PropertyChanged}"
+                                         Text="{Binding EditableDeparture,
+                                                        ConverterCulture=ru-ru}"
                                          CaretBrush="AliceBlue" />
 
                             </StackPanel>
@@ -181,7 +179,6 @@
                                 <Image VerticalAlignment="Center" HorizontalAlignment="Center"
                                        Source="/wwwroot/Images/file_basket_red.png" Width="30"/>
                             </Button>
-
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

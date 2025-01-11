@@ -66,7 +66,7 @@ namespace BirdsViewModels
         #region Properties
         public ReadOnlyObservableCollection<BirdVM> Birds { get; }
         public object? Current { get => Get<object>(); private set => Set(value); }
-        public DateOnly Departure { get; } = DateOnly.FromDateTime(DateTime.Now);
+        //public DateOnly Departure { get; } = DateOnly.FromDateTime(DateTime.Now);
         #endregion
 
         #region Methods
@@ -117,19 +117,19 @@ namespace BirdsViewModels
             },
             birdVM => !string.IsNullOrWhiteSpace(birdVM.Name)
         );
-        public RelayCommand DeleteBirdCommand => GetCommand<Bird>
+        public RelayCommand DeleteBirdCommand => GetCommand<BirdVM>
         (
             async bird =>
             {
 
                 // Создание клона с внесёнными изменениями, которые отобразятся только после сохранения в Репозитории.
-                Bird bird1 = new(bird.Id, bird.Name, bird.Description, bird.Arrival, Departure, false);
+                Bird bird1 = new(bird.Id, bird.Bird!.Name, bird.Bird.Description, bird.Bird.Arrival, bird.EditableDeparture, false);
 
                 await birdsRepository.UpdateAsync(bird1);
             },
-            bird => bird.IsActive
+            bird => bird.Bird?.IsActive ?? false
         );
-        public RelayCommand RemoveBirdCommand => GetCommand<Bird>
+        public RelayCommand RemoveBirdCommand => GetCommand<BirdVM>
         (
             async bird =>
             {
