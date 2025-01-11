@@ -1,5 +1,5 @@
 ﻿// Delegates for WPF Command Methods
-namespace BirdsCommon
+namespace BirdsCommon.Command
 {
     /// <summary>Делегат исполняющего метода команды без параметра.</summary>
     public delegate void ExecuteHandler();

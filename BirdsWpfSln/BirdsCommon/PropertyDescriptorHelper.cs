@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 
-namespace CommonCore.Helpers
+namespace BirdsCommon
 {
     public static partial class PropertyDescriptorHelper
     {
@@ -96,7 +93,7 @@ namespace CommonCore.Helpers
 
             public target_handler(object target, PropertyDescriptor propertyDescriptor, PropertyChangedEventHandler handler)
             {
-                this.targetReference = new WeakReference(target);
+                targetReference = new WeakReference(target);
                 this.handler = handler;
                 this.propertyDescriptor = propertyDescriptor;
 

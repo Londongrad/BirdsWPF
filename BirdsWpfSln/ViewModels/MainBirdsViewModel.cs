@@ -1,5 +1,7 @@
 using BirdsCommon;
+using BirdsCommon.Command;
 using BirdsCommon.Repository;
+using BirdsCommon.ViewModelBase;
 using System.Collections.ObjectModel;
 
 namespace BirdsViewModels
@@ -11,7 +13,7 @@ namespace BirdsViewModels
         private readonly BirdsViewModel birdsVM;
         private readonly AddBirdViewModel addBirdVM;
         private static readonly ReadOnlyCollection<string> privateBirdNameGroups
-            = Array.AsReadOnly(["Nuthatch", "Great tit", "Black-capped chickadee", "Sparrow", "Amadina"]);
+            = Array.AsReadOnly(["Поползень", "Большак", "Гайка", "Воробей", "Амадин", "Дубонос", "Щегол"]);
         private readonly INavigationService navigator;
         #endregion
 
@@ -20,13 +22,12 @@ namespace BirdsViewModels
             this.birdsRepository = birdsRepository;
             birdsVM = new(birdsRepository);
             addBirdVM = new();
-
             Birds = birdsRepository.GetObservableCollection();
-
             navigator = this;
             navigator.NavigateTo(addBirdVM = new());
             navigator.AddCreator(typeof(BirdsViewModel), () => this.birdsVM);
             navigator.AddCreator(typeof(AddBirdViewModel), () => this.addBirdVM);
+            
         }
 
         /// <summary>Предоставляет статическую коллекцию <see cref="privateBirdNameGroups"/>. 
@@ -36,12 +37,16 @@ namespace BirdsViewModels
         #region Properties
         public ReadOnlyObservableCollection<Bird> Birds { get; }
 
-
+        public int NumberOfBirds { get => Get<int>(); set => Set(value); }
         public DateOnly Departure { get; set; } = DateOnly.FromDateTime(DateTime.Now);
         #endregion
 
         #region Methods
-        public async Task LoadAsync() => await birdsRepository.LoadAsync();
+        public async Task LoadAsync()
+        {
+            await birdsRepository.LoadAsync();
+            NumberOfBirds = Birds.Count;
+        } 
 
         public void RaiseCurrentChanged() => RaisePropertyChanged(nameof(INavigationService.Current));
 
@@ -53,7 +58,7 @@ namespace BirdsViewModels
             async birdVM =>
             {
                 await birdsRepository.AddAsync(new Bird(birdVM.Id, birdVM.Name, birdVM.Description, birdVM.Arrival, birdVM.Departure, birdVM.IsActive));
-                birdVM.Clear();
+                NumberOfBirds++;
             },
             birdVM => !string.IsNullOrWhiteSpace(birdVM.Name)
         );
@@ -74,6 +79,7 @@ namespace BirdsViewModels
             async bird =>
             {
                 await birdsRepository.DeleteAsync(bird.Id);
+                NumberOfBirds--;
             }
         );
         #endregion

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace BirdsCommon
+namespace BirdsCommon.ViewModelBase
 {
     public abstract partial class ViewModelBase : BaseInpc
     {

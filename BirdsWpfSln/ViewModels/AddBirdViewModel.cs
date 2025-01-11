@@ -1,5 +1,5 @@
-﻿using BirdsCommon;
-using BirdsCommon.Repository;
+﻿using BirdsCommon.Repository;
+using BirdsCommon.ViewModelBase;
 
 namespace BirdsViewModels
 {

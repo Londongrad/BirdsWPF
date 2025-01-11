@@ -130,9 +130,6 @@ namespace BirdsRepository
                 p(b, args);
             }
         }
-
-
-
         public async Task LoadAsync() => await Task.Run(birds.Load);
     }
 }

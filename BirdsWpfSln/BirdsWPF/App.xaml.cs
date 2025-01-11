@@ -1,9 +1,6 @@
 ﻿using BirdsCommon;
-using BirdsCommon.Repository;
-using BirdsRepository;
 using BirdsViewModels;
 using BirdsWPF.Views.Windows;
-using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
 namespace BirdsWPF

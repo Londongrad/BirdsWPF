@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace BirdsCommon
+namespace BirdsCommon.ViewModelBase
 {
     /// <summary>Базовый класс с реализацией <see cref="INotifyPropertyChanged"/>.</summary>
     public abstract class BaseInpc : INotifyPropertyChanged
@@ -35,7 +35,7 @@ namespace BirdsCommon
         protected void Set<T>(ref T propertyFiled, T newValue, [CallerMemberName] string? propertyName = null)
         {
             ArgumentException.ThrowIfNullOrWhiteSpace(propertyName);
-            if (!object.Equals(propertyFiled, newValue))
+            if (!Equals(propertyFiled, newValue))
             {
                 T oldValue = propertyFiled;
                 propertyFiled = newValue;

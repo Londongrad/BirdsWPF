@@ -11,14 +11,16 @@
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type=vm:BirdsViewModel, 
                                               IsDesignTimeCreatable=False}">
-    <ScrollViewer VerticalScrollBarVisibility="Hidden"
+    <ScrollViewer VerticalScrollBarVisibility="Visible"
                   HorizontalScrollBarVisibility="Hidden"
                   Focusable="False">
 
         <StackPanel>
 
             <StackPanel>
-                <TextBlock Text="{Binding NumberOfBirds}"
+                <TextBlock Text="{Binding NumberOfBirds,
+                                          Mode=TwoWay,
+                                          Source={StaticResource mainVM}}"
                            Margin="0 0 0 20"
                            Foreground="White"
                            FontSize="24"
@@ -35,8 +37,7 @@
                           Margin="0 0 0 6"
                           ItemsSource="{Binding BirdNameGroups, 
                                                 Mode=OneWay, 
-                                                Source={StaticResource mainVM}}"
-                          SelectedValue="{Binding Name}" />
+                                                Source={StaticResource mainVM}}"/>
 
                 <Button    Content="Show only"
                            HorizontalAlignment="Center"
@@ -60,12 +61,12 @@
                 <d:ItemsControl.ItemsSource>
                     <x:Array Type="rep:Bird">
                         <local:Bird Name="qwerty"
-                                  IsActive="False" />
+                                    IsActive="False" />
                         <local:Bird Name="asdfg"
-                                  IsActive="True" />
+                                    IsActive="True" />
                         <local:Bird Name="zxcvb" />
                         <local:Bird Name="yuiop"
-                                  IsActive="True" />
+                                    IsActive="True" />
                     </x:Array>
                 </d:ItemsControl.ItemsSource>
                 <ItemsControl.ItemTemplate>
@@ -86,7 +87,7 @@
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center" />
 
-                            <TextBlock Text="{Binding Arrival, StringFormat=dd.MM.yyyy}"
+                            <TextBlock Text="{Binding Arrival, ConverterCulture=ru-ru}"
                                        Margin="0 0 20 0"
                                        Foreground="White"
                                        FontSize="24"
@@ -100,24 +101,12 @@
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center" />
 
-                            <TextBlock Text="{Binding Departure, StringFormat=dd.MM.yyyy}"
+                            <TextBlock Text="{Binding Departure, ConverterCulture=ru-ru}"
                                        Margin="0 0 20 0"
                                        Foreground="White"
                                        FontSize="24"
                                        VerticalAlignment="Center"
-                                       HorizontalAlignment="Center">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsActive}"
-                                                         Value="True">
-                                                <Setter Property="Visibility"
-                                                        Value="Collapsed" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
+                                       HorizontalAlignment="Center" />
 
                             <StackPanel>
                                 <StackPanel.Style>
@@ -158,24 +147,27 @@
                                          FontSize="20"
                                          Background="Transparent"
                                          Text="{Binding Departure,
-                                                        StringFormat=dd.MM.yyyy,
+                                                        ConverterCulture=ru-ru,
                                                         Source={StaticResource mainVM}}"
                                          CaretBrush="AliceBlue" />
 
                             </StackPanel>
                             <Button Style="{StaticResource CSButtons}"
-                                        BorderThickness="0"
-                                        Background="#FF483D8B"
-                                        Padding="5" Margin="5,0,0,0"
-                                        HorizontalContentAlignment="Center"
-                                        VerticalContentAlignment="Center"
-                                        Command="{Binding RemoveBirdCommand, 
+                                    BorderThickness="0"
+                                    Background="#FF483D8B"
+                                    Padding="5"
+                                    Margin="5,0,0,0"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    Command="{Binding RemoveBirdCommand, 
                                                           Mode=OneWay, 
                                                           Source={StaticResource mainVM}}"
-                                        CommandParameter="{Binding}"
+                                    CommandParameter="{Binding}"
                                     Height="{Binding ActualWidth, Mode=OneWay, RelativeSource={RelativeSource Self}}">
-                                <Image VerticalAlignment="Center" HorizontalAlignment="Center"
-                                       Source="/wwwroot/Images/file_basket_red.png" Width="30"/>
+                                <Image VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Source="/wwwroot/Images/file_basket_red.png"
+                                       Width="30" />
                             </Button>
 
                         </StackPanel>

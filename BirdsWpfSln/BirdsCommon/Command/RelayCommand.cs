@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using System.Windows.Threading;
 
-namespace BirdsCommon
+namespace BirdsCommon.Command
 {
     /// <summary>Класс реализующий <see cref="ICommand"/>.<br/>
     /// Реализация взята из <see href="https://www.cyberforum.ru/wpf-silverlight/thread2390714-page4.html#post13535649"/>
@@ -32,7 +32,7 @@ namespace BirdsCommon
 
         /// <inheritdoc cref="RelayCommand(ExecuteHandler{object?}, CanExecuteHandler{object?})"/>
         public RelayCommand(ExecuteHandler<object?> execute)
-            :this(execute, _ => true)
+            : this(execute, _ => true)
         { }
 
         /// <inheritdoc cref="RelayCommand(ExecuteHandler{object?}, CanExecuteHandler{object?})"/>

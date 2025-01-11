@@ -1,4 +1,4 @@
-﻿namespace BirdsCommon
+﻿namespace BirdsCommon.Command
 {
     /// <summary>Реализация RelayCommand для методов с обобщённым параметром.</summary>
     /// <typeparam name="T">Тип параметра методов.</typeparam>
@@ -90,7 +90,7 @@
         {
             if (canExecute is null) return null;
 
-            return p => (p is T t) &&
+            return p => p is T t &&
                         canExecute(t);
         }
 

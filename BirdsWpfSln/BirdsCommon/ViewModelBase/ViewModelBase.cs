@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Threading;
 
-namespace BirdsCommon
+namespace BirdsCommon.ViewModelBase
 {
     /// <summary>Базовый класс для ViewModel.</summary>
     public abstract partial class ViewModelBase : BaseInpc

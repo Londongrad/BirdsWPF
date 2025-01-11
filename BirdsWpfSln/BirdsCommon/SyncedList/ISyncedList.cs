@@ -1,9 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Threading;
 
-namespace BirdsCommon
+namespace BirdsCommon.SyncedList
 {
     public interface ISyncedList<T> : IList<T>
     {

@@ -1,4 +1,4 @@
-﻿namespace BirdsCommon
+﻿namespace BirdsCommon.Cloneable
 {
     public interface ICloneable<T> : ICloneable
     {

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Reflection;
-using System.Threading;
 
-namespace BirdsCommon
+namespace BirdsCommon.SyncedList
 {
     public class SyncedObservableCollection<T> : ObservableCollection<T>, IEnumerable, ICollection, IList, IReadOnlyCollection<T>, IReadOnlyList<T>, IEnumerable<T>, ICollection<T>, IList<T>, ISyncedList, ISyncedList<T>
     {
