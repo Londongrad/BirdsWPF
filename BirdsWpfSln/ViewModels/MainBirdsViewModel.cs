@@ -10,33 +10,36 @@ namespace BirdsViewModels
     {
         #region Fields
         private readonly IRepository<Bird> birdsRepository;
-        private readonly BirdsViewModel birdsVM;
+        private readonly BirdViewModel birdVM;
         private readonly AddBirdViewModel addBirdVM;
-        private static readonly ReadOnlyCollection<string> privateBirdNameGroups
+        private static readonly ReadOnlyCollection<string> birdNamesToAdd
             = Array.AsReadOnly(["Поползень", "Большак", "Гайка", "Воробей", "Амадин", "Дубонос", "Щегол"]);
+        private static readonly ReadOnlyCollection<string> birdNamesToShow
+            = Array.AsReadOnly(["Поползень", "Большак", "Гайка", "Воробей", "Амадин", "Дубонос", "Щегол", "Показать всех", "Только активные", "Только неактивные"]);
         private readonly INavigationService navigator;
         #endregion
 
         public MainBirdsViewModel(IRepository<Bird> birdsRepository)
         {
             this.birdsRepository = birdsRepository;
-            birdsVM = new(birdsRepository);
+            birdVM = new(birdsRepository);
             addBirdVM = new();
             Birds = birdsRepository.GetObservableCollection();
             navigator = this;
             navigator.NavigateTo(addBirdVM = new());
-            navigator.AddCreator(typeof(BirdsViewModel), () => this.birdsVM);
+            navigator.AddCreator(typeof(BirdViewModel), () => this.birdVM);
             navigator.AddCreator(typeof(AddBirdViewModel), () => this.addBirdVM);
             
         }
 
         /// <summary>Предоставляет статическую коллекцию <see cref="privateBirdNameGroups"/>. 
         /// Можно было обойтись статическим полем, но для облегчения привязок создано это прокси свойство.</summary>
-        public ReadOnlyCollection<string> BirdNameGroups => privateBirdNameGroups;
+        public ReadOnlyCollection<string> BirdNamesToAdd => birdNamesToAdd;
+        public ReadOnlyCollection<string> BirdNamesToShow => birdNamesToShow;
 
         #region Properties
-        public ReadOnlyObservableCollection<Bird> Birds { get; }
-
+        public ReadOnlyObservableCollection<Bird> Birds { get; set; }
+        public string? Name { get => Get<string>(); set => Set(value); }
         public int NumberOfBirds { get => Get<int>(); set => Set(value); }
         public DateOnly Departure { get; set; } = DateOnly.FromDateTime(DateTime.Now);
         #endregion

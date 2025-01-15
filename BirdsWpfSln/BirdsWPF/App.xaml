@@ -22,7 +22,7 @@
                 <vctrls:AddBirdView />
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type vm:BirdsViewModel}">
+            <DataTemplate DataType="{x:Type vm:BirdViewModel}">
                 <vctrls:BirdsView />
             </DataTemplate>
 

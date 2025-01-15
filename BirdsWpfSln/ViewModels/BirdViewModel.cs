@@ -3,13 +3,13 @@ using BirdsCommon.ViewModelBase;
 
 namespace BirdsViewModels
 {
-    public class BirdsViewModel : ViewModelBase
+    public class BirdViewModel : ViewModelBase
     {
         #region [ Fields ]
         private readonly IRepository<Bird> birdRepository;
         #endregion
 
-        public BirdsViewModel(IRepository<Bird> birdRepository)
+        public BirdViewModel(IRepository<Bird> birdRepository)
         {
             this.birdRepository = birdRepository;
             //Birds = birdRepository.GetObservableCollection();

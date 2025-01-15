@@ -26,7 +26,7 @@
                   HorizontalContentAlignment="Center"
                   FontSize="20"
                   Margin="0 0 0 0"
-                  ItemsSource="{Binding BirdNameGroups, 
+                  ItemsSource="{Binding BirdNamesToAdd, 
                                         Mode=OneWay, 
                                         Source={StaticResource mainVM}}"
                   SelectedValue="{Binding Name}">

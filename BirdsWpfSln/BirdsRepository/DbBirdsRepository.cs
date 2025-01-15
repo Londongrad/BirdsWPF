@@ -19,7 +19,7 @@ namespace BirdsRepository
         private readonly DbSet<Bird> birds;
         public DbBirdsRepository(DbContext context, Func<DbContext> createContext)
         {
-            context.Database.EnsureCreated();
+            //context.Database.EnsureCreated();
             this.context = context;
             birds = context.Set<Bird>();
             this.createContext = createContext;
@@ -87,20 +87,18 @@ namespace BirdsRepository
                 _ = birds.Update(bird);
                 _ = context.SaveChanges();
             }
-            {
-                // Замена сущности в локальном кеше.
-                //birds.Local.ToObservableCollection().ReplaceOrAdd(b => b.Id == bird.Id, bird);
-                //birds.Local.FindEntry(bird.Id)!.State = EntityState.Unchanged;
+            // Замена сущности в локальном кеше.
+            //birds.Local.ToObservableCollection().ReplaceOrAdd(b => b.Id == bird.Id, bird);
+            //birds.Local.FindEntry(bird.Id)!.State = EntityState.Unchanged;
 
-                // Обновление сущности с уведомлением привязок через PropertyDescriptor об изменении Bird.IsActive.
-                // Вариант показан, как альтернативная реализация.
-                // В данной задаче, на практике, более лучшим вариантом будет замена сущности.
-                EntityEntry<Bird>? be = birds.Local.FindEntry(bird.Id);
-                be!.Reload();
-                Bird b = birds.Find(bird.Id) ?? throw new NullReferenceException();
-                //OnIsActiveChanged(b);
-                OnAllPropertiesChanged(b);
-            }
+            // Обновление сущности с уведомлением привязок через PropertyDescriptor об изменении Bird.IsActive.
+            // Вариант показан, как альтернативная реализация.
+            // В данной задаче, на практике, более лучшим вариантом будет замена сущности.
+            EntityEntry<Bird>? be = birds.Local.FindEntry(bird.Id);
+            be!.Reload();
+            Bird b = birds.Find(bird.Id) ?? throw new NullReferenceException();
+            //OnIsActiveChanged(b);
+            OnAllPropertiesChanged(b);
         });
 
         // Создание метода для уведомления об обновлении свойства Bird.IsActive
