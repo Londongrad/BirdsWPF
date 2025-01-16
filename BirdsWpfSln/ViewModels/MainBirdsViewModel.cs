@@ -3,6 +3,8 @@ using BirdsCommon.Command;
 using BirdsCommon.Repository;
 using BirdsCommon.ViewModelBase;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Data;
 
 namespace BirdsViewModels
 {
@@ -29,7 +31,11 @@ namespace BirdsViewModels
             navigator.NavigateTo(addBirdVM = new());
             navigator.AddCreator(typeof(BirdViewModel), () => this.birdVM);
             navigator.AddCreator(typeof(AddBirdViewModel), () => this.addBirdVM);
-            
+
+            //Коллекция для сортировки.
+            BirdsCollectionView = CollectionViewSource.GetDefaultView(Birds);
+            BirdsCollectionView.SortDescriptions.Add(new SortDescription(nameof(Bird.IsActive), ListSortDirection.Descending));
+            BirdsCollectionView.SortDescriptions.Add(new SortDescription(nameof(Bird.Arrival), ListSortDirection.Descending));
         }
 
         /// <summary>Предоставляет статическую коллекцию <see cref="privateBirdNameGroups"/>. 
@@ -42,6 +48,11 @@ namespace BirdsViewModels
         public string? Name { get => Get<string>(); set => Set(value); }
         public int NumberOfBirds { get => Get<int>(); set => Set(value); }
         public DateOnly Departure { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+
+        /// <summary>
+        /// Коллекция для сортировки
+        /// </summary>
+        public ICollectionView BirdsCollectionView { get; }
         #endregion
 
         #region Methods
@@ -49,10 +60,32 @@ namespace BirdsViewModels
         {
             await birdsRepository.LoadAsync();
             NumberOfBirds = Birds.Count;
-        } 
+        }
 
         public void RaiseCurrentChanged() => RaisePropertyChanged(nameof(INavigationService.Current));
-
+        private bool FilterByName(object obj)
+        {
+            if (obj is Bird bird)
+            {
+                switch (Name)
+                {
+                    case "Амадин":
+                    case "Воробей":
+                    case "Большак":
+                    case "Гайка":
+                    case "Поползень":
+                    case "Дубонос":
+                        return bird.Name!.Contains(Name);
+                    case "Только активные":
+                        return bird.IsActive == true;
+                    case "Только неактивные":
+                        return bird.IsActive == false;
+                    default:
+                        return true;
+                }
+            }
+            return false;
+        }
         #endregion
 
         #region Commands
@@ -84,6 +117,19 @@ namespace BirdsViewModels
                 await birdsRepository.DeleteAsync(bird.Id);
                 NumberOfBirds--;
             }
+        );
+        /// <summary>
+        /// Команда для сортировки коллекции в зависимости от свойства <see cref="Name"/> <br/>
+        /// Значение свойства задается из ComboBox в окне BirdsView
+        /// </summary>
+        public RelayCommand ShowOnlyCommand => GetCommand
+        (
+            () =>
+            {
+                BirdsCollectionView.Filter = FilterByName;
+                NumberOfBirds = BirdsCollectionView.Cast<Bird>().Count();
+            },
+            () => !string.IsNullOrEmpty(Name)
         );
         #endregion
     }

@@ -36,10 +36,10 @@
                           HorizontalContentAlignment="Center"
                           FontSize="20"
                           Margin="0 0 0 6"
-                          ItemsSource="{Binding BirdNamesToShow, 
-                                                Mode=OneWay, 
+                          ItemsSource="{Binding BirdNamesToShow,
                                                 Source={StaticResource mainVM}}"
-                          SelectedValue="{Binding Name}" />
+                          SelectedValue="{Binding Name,
+                                                  Source={StaticResource mainVM}}" />
 
                 <Button    Content="Show only"
                            HorizontalAlignment="Center"
@@ -51,12 +51,14 @@
                            FontWeight="Light"
                            Padding="5"
                            BorderBrush="Black"
-                           Command="{Binding ShowOnlyCommand}"
+                           Command="{Binding ShowOnlyCommand,
+                                             Mode=OneWay, 
+                                             Source={StaticResource mainVM}}"
                            Style="{StaticResource CSButtons}" />
 
             </StackPanel>
 
-            <ItemsControl ItemsSource="{Binding Birds, 
+            <ItemsControl ItemsSource="{Binding BirdsCollectionView, 
                                                 Mode=OneWay, 
                                                 Source={StaticResource mainVM}}"
                           Margin="0 0 0 0">
