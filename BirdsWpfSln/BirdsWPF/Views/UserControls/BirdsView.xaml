@@ -42,15 +42,6 @@
                                                   Source={StaticResource mainVM}}" />
 
                 <Button    Content="Show only"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Margin="0 0 0 20"
-                           Background="Transparent"
-                           Foreground="AliceBlue"
-                           FontSize="24"
-                           FontWeight="Light"
-                           Padding="5"
-                           BorderBrush="Black"
                            Command="{Binding ShowOnlyCommand,
                                              Mode=OneWay, 
                                              Source={StaticResource mainVM}}"

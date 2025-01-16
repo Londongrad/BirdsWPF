@@ -52,6 +52,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Remove="wwwroot\Themes\ComboBoxTheme.xaml" />
+    <Page Remove="wwwroot\Themes\CSButtonTheme.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
@@ -75,6 +80,8 @@
     <Resource Include="wwwroot\Images\file_basket_red.png" />
     <Resource Include="wwwroot\Images\ok.png" />
     <Resource Include="wwwroot\Images\shutdown.png" />
+    <Resource Include="wwwroot\Themes\ComboBoxTheme.xaml" />
+    <Resource Include="wwwroot\Themes\CSButtonTheme.xaml" />
   </ItemGroup>
 
   <ItemGroup>
