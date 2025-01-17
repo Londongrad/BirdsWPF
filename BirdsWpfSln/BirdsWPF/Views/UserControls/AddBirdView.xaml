@@ -15,15 +15,7 @@
         <TextBlock Style="{DynamicResource TextBlockOnAddStyle}"
                    Text="Bird's type" />
 
-        <ComboBox Foreground="AliceBlue"
-                  HorizontalAlignment="Center"
-                  Height="40"
-                  Width="150"
-                  VerticalContentAlignment="Center"
-                  HorizontalContentAlignment="Center"
-                  FontSize="20"
-                  Margin="0 0 0 0"
-                  ItemsSource="{Binding BirdNamesToAdd, 
+        <ComboBox ItemsSource="{Binding BirdNamesToAdd, 
                                         Mode=OneWay, 
                                         Source={StaticResource mainVM}}"
                   SelectedValue="{Binding Name}">
@@ -46,6 +38,6 @@
         <Button Content="Save the bird"
                 Command="{Binding AddBirdCommand, Mode=OneWay, Source={StaticResource mainVM}}"
                 CommandParameter="{Binding}"
-                Style="{StaticResource CSButtons}" />
+                Style="{StaticResource AddBirdButton}" />
     </StackPanel>
 </UserControl>

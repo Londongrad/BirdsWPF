@@ -10,12 +10,14 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/wwwroot/Themes/MenuButtonTheme.xaml" />
-                <ResourceDictionary Source="/wwwroot/Themes/CSButtonTheme.xaml" />
-                <ResourceDictionary Source="/wwwroot/Themes/SetButtonTheme.xaml" />
-                <ResourceDictionary Source="/wwwroot/Themes/ToggleButtonTheme.xaml" />
+                <ResourceDictionary Source="/wwwroot/Themes/AddBirdButtonTheme.xaml" />
                 <ResourceDictionary Source="/wwwroot/Themes/ComboboxTheme.xaml" />
                 <ResourceDictionary Source="/wwwroot/Themes/TextBlockOnAddTheme.xaml" />
                 <ResourceDictionary Source="/wwwroot/Themes/TextBoxOnAddTheme.xaml" />
+                <ResourceDictionary Source="/wwwroot/Themes/TextBlockOnBirdsTheme.xaml" />
+                <ResourceDictionary Source="/wwwroot/Themes/DeleteButtonTheme.xaml" />
+                <ResourceDictionary Source="/wwwroot/Themes/TextBoxBirdsTheme.xaml" />
+                <ResourceDictionary Source="/wwwroot/Themes/ScrollViewerTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
             
             <local:MainBirdsViewModel x:Key="mainVM"

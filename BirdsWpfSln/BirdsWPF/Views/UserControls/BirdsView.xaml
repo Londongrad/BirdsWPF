@@ -28,15 +28,7 @@
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center" />
 
-                <ComboBox Foreground="AliceBlue"
-                          HorizontalAlignment="Center"
-                          Height="40"
-                          Width="160"
-                          VerticalContentAlignment="Center"
-                          HorizontalContentAlignment="Center"
-                          FontSize="20"
-                          Margin="0 0 0 6"
-                          ItemsSource="{Binding BirdNamesToShow,
+                <ComboBox ItemsSource="{Binding BirdNamesToShow,
                                                 Source={StaticResource mainVM}}"
                           SelectedValue="{Binding Name,
                                                   Source={StaticResource mainVM}}" />
@@ -45,7 +37,7 @@
                            Command="{Binding ShowOnlyCommand,
                                              Mode=OneWay, 
                                              Source={StaticResource mainVM}}"
-                           Style="{StaticResource CSButtons}" />
+                           Style="{StaticResource AddBirdButton}" />
 
             </StackPanel>
 
@@ -68,21 +60,14 @@
                     <DataTemplate DataType="{x:Type rep:Bird}">
                         <StackPanel Orientation="Horizontal"
                                     Margin="40 10 30 30">
-                            <TextBlock Text="{Binding Name}"
-                                       Margin="5 0 20 0"
-                                       Foreground="White"
-                                       FontSize="24"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center" />
 
-                            <TextBlock Text="{Binding Description}"
-                                       Margin="0 0 20 0"
-                                       Foreground="White"
-                                       FontSize="24"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center">
+                            <TextBlock Style="{DynamicResource TextBlockOnBirdsStyle}"
+                                       Text="{Binding Name}" />
+
+                            <TextBlock Text="{Binding Description}">
                                 <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
+                                    <Style TargetType="TextBlock"
+                                           BasedOn="{StaticResource TextBlockOnBirdsStyle}">
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding Description}"
                                                          Value="">
@@ -94,28 +79,16 @@
                                 </TextBlock.Style>
                             </TextBlock>
 
-                            <TextBlock Text="{Binding Arrival, ConverterCulture=ru-ru}"
-                                       Margin="0 0 20 0"
-                                       Foreground="White"
-                                       FontSize="24"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center" />
+                            <TextBlock Style="{DynamicResource TextBlockOnBirdsStyle}"
+                                       Text="{Binding Arrival, ConverterCulture=ru-ru}" />
 
-                            <TextBlock Text="⚊"
-                                       Margin="0 0 20 0"
-                                       Foreground="White"
-                                       FontSize="24"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center" />
+                            <TextBlock Style="{DynamicResource TextBlockOnBirdsStyle}"
+                                       Text="⚊" />
 
-                            <TextBlock Text="{Binding Departure, ConverterCulture=ru-ru}"
-                                       Margin="0 0 20 0"
-                                       Foreground="White"
-                                       FontSize="24"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center" />
+                            <TextBlock Style="{DynamicResource TextBlockOnBirdsStyle}"
+                                       Text="{Binding Departure, ConverterCulture=ru-ru}" />
 
-                            <StackPanel>
+                            <StackPanel Margin="0 0 10 0">
                                 <StackPanel.Style>
                                     <Style TargetType="StackPanel">
                                         <Style.Triggers>
@@ -128,49 +101,28 @@
                                     </Style>
                                 </StackPanel.Style>
 
-                                <Button Style="{StaticResource CSButtons}"
-                                        BorderThickness="0"
-                                        Background="#FF483D8B"
-                                        Padding="5"
-                                        FontSize="24"
+                                <Button Style="{DynamicResource DeleteButtonStyle}" 
                                         Content="Удалить"
-                                        Foreground="White"
-                                        HorizontalContentAlignment="Center"
-                                        VerticalContentAlignment="Center"
                                         Command="{Binding DeleteBirdCommand, 
                                                           Mode=OneWay, 
                                                           Source={StaticResource mainVM}}"
                                         CommandParameter="{Binding}">
                                 </Button>
 
-                                <TextBox Foreground="AliceBlue"
-                                         HorizontalAlignment="Center"
-                                         MaxLength="10"
-                                         Padding="5"
-                                         Height="40"
-                                         BorderBrush="Black"
-                                         VerticalContentAlignment="Center"
-                                         HorizontalContentAlignment="Center"
-                                         FontSize="20"
-                                         Background="Transparent"
+                                <TextBox Style="{DynamicResource TextBoxBirdsStyle}"
                                          Text="{Binding Departure,
                                                         ConverterCulture=ru-ru,
-                                                        Source={StaticResource mainVM}}"
-                                         CaretBrush="AliceBlue" />
+                                                        Source={StaticResource mainVM}}" />
 
                             </StackPanel>
-                            <Button Style="{StaticResource CSButtons}"
-                                    BorderThickness="0"
-                                    Background="#FF483D8B"
-                                    Padding="5"
-                                    Margin="5,0,0,0"
-                                    HorizontalContentAlignment="Center"
-                                    VerticalContentAlignment="Center"
+                            <Button Style="{DynamicResource DeleteButtonStyle}" 
                                     Command="{Binding RemoveBirdCommand, 
-                                                          Mode=OneWay, 
-                                                          Source={StaticResource mainVM}}"
+                                                      Mode=OneWay, 
+                                                      Source={StaticResource mainVM}}"
                                     CommandParameter="{Binding}"
-                                    Height="{Binding ActualWidth, Mode=OneWay, RelativeSource={RelativeSource Self}}">
+                                    Height="{Binding ActualWidth,
+                                                     Mode=OneWay,
+                                                     RelativeSource={RelativeSource Self}}">
                                 <Image VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
                                        Source="/wwwroot/Images/file_basket_red.png"

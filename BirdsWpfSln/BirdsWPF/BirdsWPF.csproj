@@ -52,8 +52,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Remove="wwwroot\Themes\AddBirdButtonTheme.xaml" />
     <Page Remove="wwwroot\Themes\ComboBoxTheme.xaml" />
-    <Page Remove="wwwroot\Themes\CSButtonTheme.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -81,7 +81,7 @@
     <Resource Include="wwwroot\Images\ok.png" />
     <Resource Include="wwwroot\Images\shutdown.png" />
     <Resource Include="wwwroot\Themes\ComboBoxTheme.xaml" />
-    <Resource Include="wwwroot\Themes\CSButtonTheme.xaml" />
+    <Resource Include="wwwroot\Themes\AddBirdButtonTheme.xaml" />
   </ItemGroup>
 
   <ItemGroup>
