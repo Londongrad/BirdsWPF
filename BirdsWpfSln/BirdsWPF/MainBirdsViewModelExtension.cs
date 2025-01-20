@@ -1,5 +1,7 @@
 ﻿using BirdsRepository;
 using BirdsViewModels;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System.Windows.Markup;
 
 namespace BirdsWPF
@@ -19,7 +21,18 @@ namespace BirdsWPF
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            return new MainBirdsViewModel(new DbBirdsRepository(DbFileName!));
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            var options = optionsBuilder.UseSqlite(DbFileName).Options;
+            return new MainBirdsViewModel(new DbBirdsRepository(DbFileName!, options));
+            //_ = optionsBuilder.UseSqlite(DbFullName);
+
+            //optionsBuilder
+            //    .EnableSensitiveDataLogging()
+            //    .UseSqlite($"Data Source={DbFullName}");
+
+            //optionsBuilder.LogTo(Console.WriteLine, [RelationalEventId.CommandExecuted]);
+
+            //optionsBuilder.UseSqlServer("Data Source=DESKTOP-9OKU3FE\\SQLEXPRESS;Initial Catalog=Birds;Integrated Security=True;Encrypt=False;Trust Server Certificate=True");
         }
     }
 }

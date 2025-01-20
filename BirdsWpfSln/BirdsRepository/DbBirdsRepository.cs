@@ -28,8 +28,8 @@ namespace BirdsRepository
             : this(createContext(), createContext)
         { }
 
-        public DbBirdsRepository(string dbSQLiteFullName)
-            : this(() => new ApplicationDbContext(dbSQLiteFullName))
+        public DbBirdsRepository(string dbSQLiteFullName, DbContextOptions<ApplicationDbContext> options)
+            : this(() => new ApplicationDbContext(dbSQLiteFullName, options))
         { }
 
         public async Task<Bird> AddAsync(Bird idDto) => await Task.Run(() =>
