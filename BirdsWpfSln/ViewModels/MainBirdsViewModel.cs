@@ -36,6 +36,7 @@ namespace BirdsViewModels
             BirdsCollectionView = CollectionViewSource.GetDefaultView(Birds);
             BirdsCollectionView.SortDescriptions.Add(new SortDescription(nameof(Bird.IsActive), ListSortDirection.Descending));
             BirdsCollectionView.SortDescriptions.Add(new SortDescription(nameof(Bird.Arrival), ListSortDirection.Descending));
+            BirdsCollectionView.SortDescriptions.Add(new SortDescription(nameof(Bird.Name), ListSortDirection.Descending));
         }
 
         /// <summary>Предоставляет статическую коллекцию <see cref="privateBirdNameGroups"/>. 
@@ -93,7 +94,7 @@ namespace BirdsViewModels
         (
             async birdVM =>
             {
-                await birdsRepository.AddAsync(new Bird(birdVM.Id, birdVM.Name, birdVM.Description, birdVM.Arrival, birdVM.Departure, birdVM.IsActive));
+                await birdsRepository.AddAsync(new Bird(birdVM.Id, birdVM.Name!, birdVM.Description, birdVM.Arrival, birdVM.Departure, birdVM.IsActive));
                 NumberOfBirds++;
             },
             birdVM => !string.IsNullOrWhiteSpace(birdVM.Name)

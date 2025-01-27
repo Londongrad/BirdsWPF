@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BirdsRepository
+namespace BirdsRepository.Configurations
 {
     internal class BirdConfiguration : IEntityTypeConfiguration<Bird>
     {

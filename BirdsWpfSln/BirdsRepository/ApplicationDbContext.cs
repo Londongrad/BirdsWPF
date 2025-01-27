@@ -1,13 +1,14 @@
-﻿ using BirdsCommon.Repository;
+﻿using BirdsCommon.Repository;
+using BirdsRepository.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using System.Windows.Media;
 
 namespace BirdsRepository
 {
     internal class ApplicationDbContext(string dbFullName) : DbContext
     {
         public DbSet<Bird>? Birds { get; set; }
+        public DbSet<Species>? Species { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,14 +21,14 @@ namespace BirdsRepository
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //_ = optionsBuilder.UseSqlite(DbFullName);
+            _ = optionsBuilder.UseSqlite(DbFullName);
 
-            //optionsBuilder
-            //    .EnableSensitiveDataLogging()
-            //    .UseSqlite($"Data Source={DbFullName}");
+            optionsBuilder
+                .EnableSensitiveDataLogging()
+                .UseSqlite($"Data Source={DbFullName}");
 
-            //optionsBuilder.LogTo(Console.WriteLine, [RelationalEventId.CommandExecuted]);
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-9OKU3FE\\SQLEXPRESS;Initial Catalog=Birds;Integrated Security=True;Encrypt=False;Trust Server Certificate=True");
+            optionsBuilder.LogTo(Console.WriteLine, [RelationalEventId.CommandExecuted]);
+            //optionsBuilder.UseSqlServer("Data Source=DESKTOP-9OKU3FE\\SQLEXPRESS;Initial Catalog=Birds;Integrated Security=True;Encrypt=False;Trust Server Certificate=True");
         }
     }
 }

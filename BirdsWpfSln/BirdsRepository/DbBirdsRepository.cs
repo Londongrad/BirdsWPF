@@ -19,7 +19,7 @@ namespace BirdsRepository
         private readonly DbSet<Bird> birds;
         public DbBirdsRepository(DbContext context, Func<DbContext> createContext)
         {
-            //context.Database.EnsureCreated();
+            context.Database.EnsureCreated();
             this.context = context;
             birds = context.Set<Bird>();
             this.createContext = createContext;
@@ -102,12 +102,13 @@ namespace BirdsRepository
         });
 
         // Создание метода для уведомления об обновлении свойства Bird.IsActive
-        private static readonly Action<object, EventArgs> isActiveChangedHandler =
-            typeof(PropertyDescriptor)
-            .GetMethod($"OnValueChanged", BindingFlags.Instance | BindingFlags.NonPublic)!
-            .CreateDelegate<Action<object, EventArgs>>(TypeDescriptor.GetProperties(typeof(Bird))[nameof(Bird.IsActive)]);
+        //private static readonly Action<object, EventArgs> isActiveChangedHandler =
+        //    typeof(PropertyDescriptor)
+        //    .GetMethod($"OnValueChanged", BindingFlags.Instance | BindingFlags.NonPublic)!
+        //    .CreateDelegate<Action<object, EventArgs>>(TypeDescriptor.GetProperties(typeof(Bird))[nameof(Bird.IsActive)]);
+        //private static void OnIsActiveChanged(Bird b) => isActiveChangedHandler(b, args);
+
         private static readonly PropertyChangedEventArgs args = new(string.Empty);
-        private static void OnIsActiveChanged(Bird b) => isActiveChangedHandler(b, args);
 
         // Создание метода для уведомления об обновлении всех свойств Bird
         private static readonly ImmutableArray<Action<object, EventArgs>> allPropertiesChangedHandler;
