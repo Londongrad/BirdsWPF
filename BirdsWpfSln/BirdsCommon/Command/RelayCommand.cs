@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using System.Windows.Threading;
 
-namespace BirdsCommon
+namespace BirdsCommon.Command
 {
     /// <summary>Класс реализующий <see cref="ICommand"/>.<br/>
     /// Реализация взята из <see href="https://www.cyberforum.ru/wpf-silverlight/thread2390714-page4.html#post13535649"/>
@@ -11,7 +11,8 @@ namespace BirdsCommon
     {
         private readonly CanExecuteHandler<object?> canExecute;
         private readonly ExecuteHandler<object?> execute;
-        private readonly EventHandler requerySuggested;
+        //private readonly EventHandler requerySuggested;
+        private readonly Predicate<RelayCommand> previewRaiseCanExecuteChanged;
 
         /// <summary>Событие извещающее об изменении состояния команды.</summary>
         public event EventHandler? CanExecuteChanged;
@@ -19,20 +20,21 @@ namespace BirdsCommon
         /// <summary>Конструктор команды.</summary>
         /// <param name="execute">Исполняющий метод команды.</param>
         /// <param name="canExecute">Метод, возвращающий состояние команды.</param>
-        public RelayCommand(ExecuteHandler<object?> execute, CanExecuteHandler<object?> canExecute)
+        public RelayCommand(ExecuteHandler<object?> execute, CanExecuteHandler<object?> canExecute, Predicate<RelayCommand>? previewRaiseCanExecuteChanged = null)
         {
             ArgumentNullException.ThrowIfNull(execute);
             ArgumentNullException.ThrowIfNull(canExecute);
             this.execute = execute;
             this.canExecute = canExecute;
+            this.previewRaiseCanExecuteChanged = previewRaiseCanExecuteChanged ?? (_ => true);
 
-            requerySuggested = (o, e) => Invalidate();
-            CommandManager.RequerySuggested += requerySuggested;
+            //requerySuggested = (o, e) => Invalidate();
+            //CommandManager.RequerySuggested += requerySuggested;
         }
 
         /// <inheritdoc cref="RelayCommand(ExecuteHandler{object?}, CanExecuteHandler{object?})"/>
-        public RelayCommand(ExecuteHandler<object?> execute)
-            :this(execute, _ => true)
+        public RelayCommand(ExecuteHandler<object?> execute, Predicate<RelayCommand>? previewRaiseCanExecuteChanged = null)
+            : this(execute, _ => true, previewRaiseCanExecuteChanged)
         { }
 
         /// <inheritdoc cref="RelayCommand(ExecuteHandler{object?}, CanExecuteHandler{object?})"/>
@@ -53,18 +55,20 @@ namespace BirdsCommon
         { }
 
 
-        private readonly Dispatcher dispatcher = Application.Current.Dispatcher;
+        //private readonly Dispatcher dispatcher = Application.Current.Dispatcher;
 
         /// <summary>Метод, подымающий событие <see cref="CanExecuteChanged"/>.</summary>
         public void RaiseCanExecuteChanged()
         {
-            if (dispatcher.CheckAccess())
-                Invalidate();
-            else
-                dispatcher.BeginInvoke(Invalidate);
+            //if (dispatcher.CheckAccess())
+            //    Invalidate();
+            //else
+            //    dispatcher.BeginInvoke(Invalidate);
+            if (previewRaiseCanExecuteChanged(this))
+                CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
-        private void Invalidate()
-            => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        //private void Invalidate()
+        //    => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
 
         /// <summary>Вызов метода, возвращающего состояние команды.</summary>
         /// <param name="parameter">Параметр команды.</param>

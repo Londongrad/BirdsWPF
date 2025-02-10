@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using BirdsCommonStandard;
+using System.Collections;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Threading;
@@ -58,7 +60,9 @@ namespace BirdsCommon
                 return;
             if (SynchronizationContext.Current is DispatcherSynchronizationContext context)
             {
-                BindingOperations.EnableCollectionSynchronization(syncCollection, timeout, OnCollectionSynchronization);
+                TimeSpanClass spanClass = new TimeSpanClass() { Time = timeout };
+                times.AddOrUpdate(syncCollection, spanClass);
+                BindingOperations.EnableCollectionSynchronization(syncCollection, spanClass, OnCollectionSynchronization);
             }
             else
             {
@@ -68,11 +72,19 @@ namespace BirdsCommon
             {
                 ISyncedList syncCollection = (ISyncedList)collection;
 
-                TimeSpan timeout = (TimeSpan)context;
+                TimeSpan timeout = ((TimeSpanClass)context).Time;
 
                 CollectionSynchronization(syncCollection, timeout, accessMethod, writeAccess);
             }
         }
+
+        private static readonly ConditionalWeakTable<ISyncedList, TimeSpanClass> times = new ConditionalWeakTable<ISyncedList, TimeSpanClass>();
+
+        private class TimeSpanClass
+        {
+            public TimeSpan Time { get; set; }
+        }
+
         public static void CollectionSynchronization(ISyncedList syncCollection, TimeSpan timeout, Action accessMethod, bool writeAccess)
         {
             if (writeAccess)

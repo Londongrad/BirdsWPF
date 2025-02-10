@@ -1,9 +1,6 @@
-﻿using BirdsCommon.Repository;
-using BirdsViewModels;
-using System.Globalization;
+﻿using BirdsViewModels;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 
 namespace BirdsWPF.Views.UserControls
 {

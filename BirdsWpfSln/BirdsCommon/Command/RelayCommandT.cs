@@ -1,4 +1,4 @@
-﻿namespace BirdsCommon
+﻿namespace BirdsCommon.Command
 {
     /// <summary>Реализация RelayCommand для методов с обобщённым параметром.</summary>
     /// <typeparam name="T">Тип параметра методов.</typeparam>
@@ -12,40 +12,40 @@
         /// <see href="https://docs.microsoft.com/ru-ru/dotnet/csharp/language-reference/operators/is">
         /// оператор is возвращает false на проверку совместимости </see> с типом <typeparamref name="T"/>.
         /// </param>
-        public RelayCommand(ExecuteHandler<T> execute, CanExecuteHandler<T> canExecute, ConverterFromObjectHandler<T> converter)
+        public RelayCommand(ExecuteHandler<T> execute, CanExecuteHandler<T> canExecute, ConverterFromObjectHandler<T> converter, Predicate<RelayCommand>? previewRaiseCanExecuteChanged = null)
             : base
             (
-
                   Convert(execute, converter)!,
-                  Convert(canExecute, converter)!
+                  Convert(canExecute, converter)!,
+                  previewRaiseCanExecuteChanged
             )
         { }
 
         /// <inheritdoc cref="RelayCommand{T}.RelayCommand(ExecuteHandler{T}, CanExecuteHandler{T}, ConverterFromObjectHandler{T})"/>
-        public RelayCommand(ExecuteHandler<T> execute, CanExecuteHandler<T> canExecute)
+        public RelayCommand(ExecuteHandler<T> execute, CanExecuteHandler<T> canExecute, Predicate<RelayCommand>? previewRaiseCanExecuteChanged = null)
             : base
             (
-
                   Convert(execute)!,
-                  Convert(canExecute)!
+                  Convert(canExecute)!,
+                  previewRaiseCanExecuteChanged
             )
         { }
 
         /// <inheritdoc cref="RelayCommand{T}.RelayCommand(ExecuteHandler{T}, CanExecuteHandler{T}, ConverterFromObjectHandler{T})"/>
-        public RelayCommand(ExecuteHandler<T> execute, ConverterFromObjectHandler<T> converter)
+        public RelayCommand(ExecuteHandler<T> execute, ConverterFromObjectHandler<T> converter, Predicate<RelayCommand>? previewRaiseCanExecuteChanged = null)
             : base
             (
-
-                  Convert(execute, converter)!
+                  Convert(execute, converter)!,
+                  previewRaiseCanExecuteChanged
             )
         { }
 
         /// <inheritdoc cref="RelayCommand{T}.RelayCommand(ExecuteHandler{T}, CanExecuteHandler{T}, ConverterFromObjectHandler{T})"/>
-        public RelayCommand(ExecuteHandler<T> execute)
+        public RelayCommand(ExecuteHandler<T> execute, Predicate<RelayCommand>? previewRaiseCanExecuteChanged = null)
             : base
             (
-
-                  Convert(execute)!
+                  Convert(execute)!,
+                  previewRaiseCanExecuteChanged
             )
         { }
 
@@ -90,7 +90,7 @@
         {
             if (canExecute is null) return null;
 
-            return p => (p is T t) &&
+            return p => p is T t &&
                         canExecute(t);
         }
 

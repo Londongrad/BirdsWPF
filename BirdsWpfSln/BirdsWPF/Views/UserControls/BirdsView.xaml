@@ -4,125 +4,97 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:BirdsWPF.Views.UserControls"
-             xmlns:vm="clr-namespace:BirdsViewModels;assembly=BirdsViewModels"
-             xmlns:rep="clr-namespace:BirdsCommon.Repository;assembly=BirdsCommon"
+             xmlns:vm="clr-namespace:BirdsViewModels;assembly=BirdsViewModelsStandard"
              mc:Ignorable="d"
              d:DesignHeight="450"
-             d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance Type=vm:BirdsViewModel, 
-                                              IsDesignTimeCreatable=False}">
-    <ScrollViewer VerticalScrollBarVisibility="Hidden"
+             d:DesignWidth="800">
+    <!--d:DataContext="{d:DesignInstance Type=vm:BirdsViewModel, 
+                                              IsDesignTimeCreatable=False}">-->
+    <!--xmlns:rep="clr-namespace:BirdsCommon.Repository;assembly=BirdsCommon"-->
+    <ScrollViewer VerticalScrollBarVisibility="Visible"
                   HorizontalScrollBarVisibility="Hidden"
                   Focusable="False">
 
         <StackPanel>
 
             <StackPanel>
-                <TextBlock Text="{Binding NumberOfBirds}"
+                <TextBlock Text="{Binding Count,
+                                          StringFormat=Total number of birds: {0},
+                                          Mode=OneWay,
+                                          Source={StaticResource birds}}"
                            Margin="0 0 0 20"
                            Foreground="White"
                            FontSize="24"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center" />
 
-                <ComboBox Foreground="AliceBlue"
-                          HorizontalAlignment="Center"
-                          Height="40"
-                          Width="160"
-                          VerticalContentAlignment="Center"
-                          HorizontalContentAlignment="Center"
-                          FontSize="20"
-                          Margin="0 0 0 6"
-                          ItemsSource="{Binding BirdNameGroups, 
-                                                Mode=OneWay, 
+                <ComboBox ItemsSource="{Binding BirdNamesToShow,
                                                 Source={StaticResource mainVM}}"
-                          SelectedValue="{Binding Name}" />
+                          SelectedValue="{Binding Name,
+                                                  Source={StaticResource mainVM}}" />
 
                 <Button    Content="Show only"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Margin="0 0 0 20"
-                           Background="Transparent"
-                           Foreground="AliceBlue"
-                           FontSize="24"
-                           FontWeight="Light"
-                           Padding="5"
-                           BorderBrush="Black"
-                           Command="{Binding ShowOnlyCommand}"
-                           Style="{StaticResource CSButtons}" />
+                           Command="{Binding ShowOnlyCommand,
+                                             Mode=OneWay, 
+                                             Source={StaticResource mainVM}}"
+                           Style="{StaticResource AddBirdButton}" />
 
             </StackPanel>
 
-            <ItemsControl ItemsSource="{Binding Birds, 
-                                                Mode=OneWay, 
-                                                Source={StaticResource mainVM}}"
+            <ItemsControl ItemsSource="{Binding Mode=OneWay, Source={StaticResource birds}}"
                           Margin="0 0 0 0">
                 <d:ItemsControl.ItemsSource>
-                    <x:Array Type="vm:BirdVM">
+                    <x:Array Type="vm:IdBirdVM">
                         <local:Bird Name="qwerty"
-                                  IsActive="False" />
+                                    IsActive="False" />
                         <local:Bird Name="asdfg"
-                                  IsActive="True" />
+                                    IsActive="True" />
                         <local:Bird Name="zxcvb" />
                         <local:Bird Name="yuiop"
-                                  IsActive="True" />
+                                    IsActive="True" />
                     </x:Array>
                 </d:ItemsControl.ItemsSource>
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type vm:BirdVM}">
+                    <DataTemplate DataType="{x:Type vm:IdBirdVM}">
                         <StackPanel Orientation="Horizontal"
-                                    Margin="40 10 30 30">
-                            <StackPanel Orientation="Horizontal"
-                                    DataContext="{Binding Bird}">
-                                <TextBlock Text="{Binding Name}"
-                                       Margin="5 0 20 0"
-                                       Foreground="White"
-                                       FontSize="24"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center" />
+                                    Margin="40 10 30 30"
+                                    DataContext="{Binding ModelEntity}">
 
-                                <TextBlock Text="{Binding Description}"
-                                       Margin="0 0 20 0"
-                                       Foreground="White"
-                                       FontSize="24"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center" />
+                            <TextBlock Style="{DynamicResource TextBlockOnBirdsStyle}"
+                                       Text="{Binding Name}" />
 
-                                <TextBlock Text="{Binding Arrival, ConverterCulture=ru-ru}"
-                                       Margin="0 0 20 0"
-                                       Foreground="White"
-                                       FontSize="24"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center" />
-
-                                <TextBlock Text="⚊"
-                                       Margin="0 0 20 0"
-                                       Foreground="White"
-                                       FontSize="24"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center" />
-
-                                <TextBlock Text="{Binding Departure, ConverterCulture=ru-ru}"
-                                       Margin="0 0 20 0"
-                                       Foreground="White"
-                                       FontSize="24"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center">
-                                    <TextBlock.Style>
-                                        <Style TargetType="TextBlock">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding IsActive}"
-                                                         Value="True">
-                                                    <Setter Property="Visibility"
+                            <TextBlock Text="{Binding Description}">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock"
+                                           BasedOn="{StaticResource TextBlockOnBirdsStyle}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Description}"
+                                                         Value="">
+                                                <Setter Property="Visibility"
                                                         Value="Collapsed" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
-                            </StackPanel>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
 
-                            <StackPanel>
+                            <TextBlock Style="{DynamicResource TextBlockOnBirdsStyle}"
+                                       Text="{Binding Arrival, ConverterCulture=ru-ru}" />
+
+                            <TextBlock Style="{DynamicResource TextBlockOnBirdsStyle}"
+                                       Text="⚊" />
+
+                            <TextBlock Style="{DynamicResource TextBlockOnBirdsStyle}"
+                                       Text="{Binding Departure, ConverterCulture=ru-ru}" />
+
+                            <ComboBox ItemsSource="{Binding Species, Source={StaticResource mainVM}}"
+                                      SelectedValuePath="Id"
+                                      SelectedValue="{Binding SpecieId, Mode=OneWay}"
+                                      DisplayMemberPath="ModelEntity.Name">
+                            </ComboBox>
+
+
+                            <StackPanel Margin="0 0 10 0">
                                 <StackPanel.Style>
                                     <Style TargetType="StackPanel">
                                         <Style.Triggers>
@@ -135,50 +107,34 @@
                                     </Style>
                                 </StackPanel.Style>
 
-                                <Button Style="{StaticResource CSButtons}"
-                                        BorderThickness="0"
-                                        Background="#FF483D8B"
-                                        Padding="5"
-                                        FontSize="24"
+                                <Button Style="{DynamicResource DeleteButtonStyle}" 
                                         Content="Удалить"
-                                        Foreground="White"
-                                        HorizontalContentAlignment="Center"
-                                        VerticalContentAlignment="Center"
                                         Command="{Binding DeleteBirdCommand, 
                                                           Mode=OneWay, 
                                                           Source={StaticResource mainVM}}"
                                         CommandParameter="{Binding}">
                                 </Button>
 
-                                <TextBox Foreground="AliceBlue"
-                                         HorizontalAlignment="Center"
-                                         MaxLength="10"
-                                         Padding="5"
-                                         Height="40"
-                                         BorderBrush="Black"
-                                         VerticalContentAlignment="Center"
-                                         HorizontalContentAlignment="Center"
-                                         FontSize="20"
-                                         Background="Transparent"
-                                         Text="{Binding EditableDeparture,
-                                                        ConverterCulture=ru-ru}"
-                                         CaretBrush="AliceBlue" />
+                                <TextBox Style="{DynamicResource TextBoxBirdsStyle}"
+                                         Text="{Binding Departure,
+                                                        ConverterCulture=ru-ru,
+                                                        Source={StaticResource mainVM}}" />
 
                             </StackPanel>
-                            <Button Style="{StaticResource CSButtons}"
-                                        BorderThickness="0"
-                                        Background="#FF483D8B"
-                                        Padding="5" Margin="5,0,0,0"
-                                        HorizontalContentAlignment="Center"
-                                        VerticalContentAlignment="Center"
-                                        Command="{Binding RemoveBirdCommand, 
-                                                          Mode=OneWay, 
-                                                          Source={StaticResource mainVM}}"
-                                        CommandParameter="{Binding}"
-                                    Height="{Binding ActualWidth, Mode=OneWay, RelativeSource={RelativeSource Self}}">
-                                <Image VerticalAlignment="Center" HorizontalAlignment="Center"
-                                       Source="/wwwroot/Images/file_basket_red.png" Width="30"/>
+                            <Button Style="{DynamicResource DeleteButtonStyle}" 
+                                    Command="{Binding RemoveBirdCommand, 
+                                                      Mode=OneWay, 
+                                                      Source={StaticResource mainVM}}"
+                                    CommandParameter="{Binding}"
+                                    Height="{Binding ActualWidth,
+                                                     Mode=OneWay,
+                                                     RelativeSource={RelativeSource Self}}">
+                                <Image VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Source="/wwwroot/Images/file_basket_red.png"
+                                       Width="30" />
                             </Button>
+
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

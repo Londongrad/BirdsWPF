@@ -1,11 +1,10 @@
-﻿using BirdsCommon.Repository;
+﻿using BirdsCommonStandard;
 using BirdsViewModels;
 using System.Windows.Markup;
 
 namespace BirdsWPF.Views.UserControls
 {
-
-    [MarkupExtensionReturnType(typeof(BirdVM))]
+    [MarkupExtensionReturnType(typeof(IdBirdVM))]
     public class BirdExtension : MarkupExtension
     {
         /// <summary>Целочисленный идентификатор.</summary>
@@ -17,7 +16,8 @@ namespace BirdsWPF.Views.UserControls
         /// <summary>Описание.</summary>
         public string? Description { get; set; }
 
-        /// <summary>Прибытие. Для простоты ввода по умолчанию установлена текущая дата.</summary>
+        /// <summary>Прибытие. Для простоты ввода по умолчанию установлена текущая дата. <br/>
+        /// (Чтобы руками не заполнять поле)</summary>
         public DateOnly Arrival { get; set; }
 
         /// <summary>Отправление.</summary>
@@ -26,9 +26,12 @@ namespace BirdsWPF.Views.UserControls
         /// <summary>Активная Птица.</summary>
         public bool IsActive { get; set; }
 
+        /// <summary>Целочисленный идентификатор.</summary>
+        public int SpecieId { get; set; }
+
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            return new BirdVM(new Bird(Id, Name, Description, Arrival, Departure, IsActive));
+            return new IdBirdVM(new Bird(Id, Name, Description, Arrival.ToDateTime(new TimeOnly()), Departure.ToDateTime(new TimeOnly()), IsActive, SpecieId));
         }
     }
 }

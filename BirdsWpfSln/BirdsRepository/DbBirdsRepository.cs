@@ -1,4 +1,4 @@
-﻿using BirdsCommon.Repository;
+﻿using BirdsCommonStandard;
 using Microsoft.EntityFrameworkCore;
 
 namespace BirdsRepository
@@ -10,7 +10,7 @@ namespace BirdsRepository
         { }
 
         public DbBirdsRepository(string dbSQLiteFullName)
-            : this(() => new ApplicationDbContext(dbSQLiteFullName))
+            : this(() => new BirdsAndSpeciesDbContext(dbSQLiteFullName))
         { }
     }
 }

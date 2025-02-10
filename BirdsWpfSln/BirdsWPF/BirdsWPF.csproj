@@ -52,6 +52,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Remove="wwwroot\Themes\AddBirdButtonTheme.xaml" />
+    <Page Remove="wwwroot\Themes\ComboBoxTheme.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
@@ -64,9 +69,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BirdsCommonStandard\BirdsCommonStandard.csproj" />
     <ProjectReference Include="..\BirdsCommon\BirdsCommon.csproj" />
-    <ProjectReference Include="..\BirdsRepository\BirdsRepository.csproj" />
-    <ProjectReference Include="..\ViewModels\BirdsViewModels.csproj" />
+    <ProjectReference Include="..\BirdsRepositoryStandard\BirdsRepositoryStandard.csproj" />
+    <ProjectReference Include="..\BirdsViewModelsStandard\BirdsViewModelsStandard.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -75,6 +81,14 @@
     <Resource Include="wwwroot\Images\file_basket_red.png" />
     <Resource Include="wwwroot\Images\ok.png" />
     <Resource Include="wwwroot\Images\shutdown.png" />
+    <Resource Include="wwwroot\Themes\ComboBoxTheme.xaml" />
+    <Resource Include="wwwroot\Themes\AddBirdButtonTheme.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

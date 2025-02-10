@@ -1,21 +1,25 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace BirdsCommon
+namespace BirdsCommon.ViewModelBase
 {
     /// <summary>Базовый класс с реализацией <see cref="INotifyPropertyChanged"/>.</summary>
-    public abstract class BaseInpc : INotifyPropertyChanged
+    public abstract class BaseInpc(Predicate<BaseInpc>? previewRaisePropertyChanged) : INotifyPropertyChanged
     {
         ///<summary>Событие для извещения об изменения свойства</summary>
         /// <inheritdoc cref="INotifyPropertyChanged"/>
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        private readonly Predicate<BaseInpc> previewRaisePropertyChanged = previewRaisePropertyChanged ?? (_ => true);
+
 
         /// <summary>Защищённый метод для создания события <see cref="PropertyChanged"/>.</summary>
         /// <param name="propertyName">Имя изменившегося свойства. 
         /// Если значение не задано, то используется имя метода в котором был вызов.</param>
         protected void RaisePropertyChanged([CallerMemberName] string? propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if (previewRaisePropertyChanged(this))
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         /// <summary>Защищённый метод для присвоения значения полю и
@@ -35,7 +39,7 @@ namespace BirdsCommon
         protected void Set<T>(ref T propertyFiled, T newValue, [CallerMemberName] string? propertyName = null)
         {
             ArgumentException.ThrowIfNullOrWhiteSpace(propertyName);
-            if (!object.Equals(propertyFiled, newValue))
+            if (!Equals(propertyFiled, newValue))
             {
                 T oldValue = propertyFiled;
                 propertyFiled = newValue;

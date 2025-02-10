@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace BirdsCommon
+namespace BirdsCommon.SyncedList
 {
     public partial class SyncedList<T> : IEnumerable, ICollection, IList, IReadOnlyCollection<T>, IReadOnlyList<T>, IEnumerable<T>, ICollection<T>, IList<T>, ISyncedList, ISyncedList<T>
     {

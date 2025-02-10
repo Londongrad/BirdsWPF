@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace BirdsCommon
+namespace BirdsCommon.Command
 {
     public static class CommandExtensionMethods
     {
@@ -12,7 +12,7 @@ namespace BirdsCommon
             return can;
         }
         public static bool TryExecute(this ICommand command)
-          => TryExecute(command, null);
+          => command.TryExecute(null);
     }
 
 }

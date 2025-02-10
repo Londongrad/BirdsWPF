@@ -1,18 +1,23 @@
 ﻿<Application x:Class="BirdsWPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="clr-namespace:BirdsViewModels;assembly=BirdsViewModels"
+             xmlns:vm="clr-namespace:BirdsViewModels;assembly=BirdsViewModelsStandard"
              xmlns:vctrls="clr-namespace:BirdsWPF.Views.UserControls"
              xmlns:local="clr-namespace:BirdsWPF"
-             Startup="OnStartup">
+             Startup="OnStartup"
+             ShutdownMode="OnMainWindowClose">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="wwwroot/Themes/MenuButtonTheme.xaml" />
-                <ResourceDictionary Source="wwwroot/Themes/CSButtonTheme.xaml" />
-                <ResourceDictionary Source="wwwroot/Themes/SetButtonTheme.xaml" />
-                <ResourceDictionary Source="wwwroot/Themes/ToggleButtonTheme.xaml" />
-                <ResourceDictionary Source="wwwroot/Themes/ComboboxTheme.xaml" />
+                <ResourceDictionary Source="/wwwroot/Themes/MenuButtonTheme.xaml" />
+                <ResourceDictionary Source="/wwwroot/Themes/AddBirdButtonTheme.xaml" />
+                <ResourceDictionary Source="/wwwroot/Themes/ComboboxTheme.xaml" />
+                <ResourceDictionary Source="/wwwroot/Themes/TextBlockOnAddTheme.xaml" />
+                <ResourceDictionary Source="/wwwroot/Themes/TextBoxOnAddTheme.xaml" />
+                <ResourceDictionary Source="/wwwroot/Themes/TextBlockOnBirdsTheme.xaml" />
+                <ResourceDictionary Source="/wwwroot/Themes/DeleteButtonTheme.xaml" />
+                <ResourceDictionary Source="/wwwroot/Themes/TextBoxBirdsTheme.xaml" />
+                <ResourceDictionary Source="/wwwroot/Themes/ScrollViewerTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
             
             <local:MainBirdsViewModel x:Key="mainVM"
@@ -25,6 +30,21 @@
             <DataTemplate DataType="{x:Type vm:BirdsViewModel}">
                 <vctrls:BirdsView />
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:SpeciesViewModel}">
+                <vctrls:SpeciesView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:AddSpecieViewModel}">
+                <vctrls:AddSpecieView/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type vm:EditSpecieViewModel}">
+                <vctrls:EditSpecieView/>
+            </DataTemplate>
+
+            <CollectionViewSource x:Key="birds"
+                                  Source="{Binding Birds, Source={StaticResource mainVM}}"/>
 
         </ResourceDictionary>
     </Application.Resources>

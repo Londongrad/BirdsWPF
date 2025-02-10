@@ -1,7 +1,8 @@
-﻿using System.Runtime.CompilerServices;
+﻿using BirdsCommon.Command;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
-namespace BirdsCommon
+namespace BirdsCommon.ViewModelBase
 {
     public abstract partial class ViewModelBase
     {
@@ -42,7 +43,7 @@ namespace BirdsCommon
                 execute ?? throw executeException,
                 canExecute ?? throw canExecuteException,
                 null,
-                string.IsNullOrWhiteSpace(commandName) ? throw commandNameException : commandName, 
+                string.IsNullOrWhiteSpace(commandName) ? throw commandNameException : commandName,
                 false);
 
         ///<inheritdoc cref="GetCommand{T}(ExecuteHandler{T}, CanExecuteHandler{T}, ConverterFromObjectHandler{T}, string?)"/>
@@ -117,7 +118,6 @@ namespace BirdsCommon
             }
 
             return command;
-
         }
 
 

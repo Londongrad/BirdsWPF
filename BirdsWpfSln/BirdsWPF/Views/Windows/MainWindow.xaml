@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="clr-namespace:BirdsViewModels;assembly=BirdsViewModels"
+        xmlns:vm="clr-namespace:BirdsViewModels;assembly=BirdsViewModelsStandard" 
+        xmlns:comm="clr-namespace:BirdsCommonStandard;assembly=BirdsCommonStandard"
         mc:Ignorable="d"
         Height="900"
         Width="1500"
@@ -21,6 +22,7 @@
     <!--<Window.Resources>
         <vm:MainBirdsViewModel/>
     </Window.Resources>-->
+    
     <Border Background="#272544"
             CornerRadius="40">
         <Grid>
@@ -55,24 +57,23 @@
             <StackPanel VerticalAlignment="Center"
                         Grid.Row="1">
                 <RadioButton Content="Add Bird"
-                             Height="50"
-                             Foreground="White"
-                             FontSize="20"
                              Style="{StaticResource MenuButtonTheme}"
                              IsChecked="True"
-                             Command="{Binding NavigateToType, Mode=OneWay}"
+                             Command="{Binding Path=(comm:INavigationService.NavigateToTypeCommand), Mode=OneWay}"
                              CommandParameter="{x:Type vm:AddBirdViewModel}"/>
                 <RadioButton Content="Birds"
-                             Height="50"
-                             Foreground="White"
-                             FontSize="20"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding NavigateToType, Mode=OneWay}"
+                             Command="{Binding Path=(comm:INavigationService.NavigateToTypeCommand), Mode=OneWay}"
                              CommandParameter="{x:Type vm:BirdsViewModel}"/>
+                <RadioButton Content="Add Specie"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding Path=(comm:INavigationService.NavigateToTypeCommand), Mode=OneWay}"
+                             CommandParameter="{x:Type vm:AddSpecieViewModel}"/>
+                <RadioButton Content="Species"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding Path=(comm:INavigationService.NavigateToTypeCommand), Mode=OneWay}"
+                             CommandParameter="{x:Type vm:SpeciesViewModel}"/>
                 <RadioButton Content="Import"
-                             Height="50"
-                             Foreground="White"
-                             FontSize="20"
                              Style="{StaticResource MenuButtonTheme}"/>
 
             </StackPanel>
@@ -80,7 +81,7 @@
             <ContentControl Grid.Column="1"
                             Grid.Row="1"
                             Margin="20"
-                            Content="{Binding Current}">
+                            Content="{Binding Path=(comm:INavigationService.Current)}">
             </ContentControl>
         </Grid>
     </Border>

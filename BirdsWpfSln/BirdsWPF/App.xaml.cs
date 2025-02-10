@@ -1,9 +1,7 @@
 ﻿using BirdsCommon;
-using BirdsCommon.Repository;
-using BirdsRepository;
+using BirdsCommonStandard;
 using BirdsViewModels;
 using BirdsWPF.Views.Windows;
-using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
 namespace BirdsWPF
@@ -12,10 +10,13 @@ namespace BirdsWPF
     {
         public App()
         {
+            ViewModelSettings.SetDefault(MainBirdsViewModelExtension.ViewModelSettings);
             Startup += async (s, e) =>
             {
+
                 MainBirdsViewModel vm = (MainBirdsViewModel)FindResource("mainVM");
                 vm.Birds.EnableCollectionSynchronization();
+                vm.Species.EnableCollectionSynchronization();
                 await vm.LoadAsync();
             };
         }

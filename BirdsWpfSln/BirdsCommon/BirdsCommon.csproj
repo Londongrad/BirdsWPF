@@ -8,7 +8,40 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Cloneable\**" />
+    <Compile Remove="Command\**" />
+    <Compile Remove="Repository\**" />
+    <Compile Remove="SyncedList\**" />
+    <Compile Remove="ViewModelBase\**" />
+    <EmbeddedResource Remove="Cloneable\**" />
+    <EmbeddedResource Remove="Command\**" />
+    <EmbeddedResource Remove="Repository\**" />
+    <EmbeddedResource Remove="SyncedList\**" />
+    <EmbeddedResource Remove="ViewModelBase\**" />
+    <None Remove="Cloneable\**" />
+    <None Remove="Command\**" />
+    <None Remove="Repository\**" />
+    <None Remove="SyncedList\**" />
+    <None Remove="ViewModelBase\**" />
+    <Page Remove="Cloneable\**" />
+    <Page Remove="Command\**" />
+    <Page Remove="Repository\**" />
+    <Page Remove="SyncedList\**" />
+    <Page Remove="ViewModelBase\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="CollectionHelper.cs" />
+    <Compile Remove="INavigationService.cs" />
+    <Compile Remove="PropertyDescriptorHelper.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BirdsCommonStandard\BirdsCommonStandard.csproj" />
   </ItemGroup>
 
 </Project>

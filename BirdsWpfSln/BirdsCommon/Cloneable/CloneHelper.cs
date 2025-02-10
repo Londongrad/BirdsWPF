@@ -1,4 +1,4 @@
-﻿namespace BirdsCommon
+﻿namespace BirdsCommon.Cloneable
 {
     public static partial class CloneHelper
     {
