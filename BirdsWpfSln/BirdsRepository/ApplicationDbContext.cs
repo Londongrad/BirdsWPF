@@ -8,7 +8,6 @@ namespace BirdsRepository
     internal class ApplicationDbContext(string dbFullName) : DbContext
     {
         public DbSet<Bird>? Birds { get; set; }
-        public DbSet<Species>? Species { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
