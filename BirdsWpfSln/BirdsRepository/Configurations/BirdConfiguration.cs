@@ -25,6 +25,8 @@ namespace BirdsRepository.Configurations
                 .HasMaxLength(20);
 
             builder.Property(c => c.IsActive);
+            builder.Property(c => c.SpecieId)
+                .IsRequired(); 
         }
     }
 }

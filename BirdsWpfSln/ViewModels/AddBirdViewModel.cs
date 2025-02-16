@@ -23,6 +23,10 @@ namespace BirdsViewModels
         /// <summary>Активная Птица.</summary>
         public bool IsActive { get => Get<bool>(); set => Set(value); }
 
+        /// <summary>Целочисленный идентификатор.</summary>
+        public int SpecieId { get => Get<int>(); set => Set(value); }
+
+
         public AddBirdViewModel()
         {
             Clear();
@@ -36,6 +40,7 @@ namespace BirdsViewModels
             Arrival = DateOnly.FromDateTime(DateTime.Now);
             Departure = new();
             IsActive = true;
+            SpecieId = 0;
         }
     }
 }

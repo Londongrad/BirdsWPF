@@ -1,7 +1,8 @@
 ﻿namespace BirdsCommon.Repository
 {
     /// <summary>Имутабельный класс для Bird (Птица.).</summary>
-    public class Bird(int id, string name, string? description, DateOnly arrival, DateOnly departure, bool isActive, Species Species) : IdDto(id)
+    public class Bird(int id, string name, string? description, DateOnly arrival, DateOnly departure, bool isActive, int specieId)
+        : IdDto(id)
     {
         /// <summary>Имя.</summary>
         public string Name { get; } = name;
@@ -19,9 +20,7 @@
         public bool IsActive { get; } = isActive;
 
         /// <summary>Внешний ключ.</summary>
-        public int SpeciesId { get; }
+        public int SpecieId { get; } = specieId;
 
-        /// <summary>Вид, к которому относится птица.</summary>
-        public Species Species { get; } = Species;
     }
 }

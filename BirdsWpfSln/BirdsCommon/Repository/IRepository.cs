@@ -32,9 +32,18 @@ namespace BirdsCommon.Repository
         /// <remarks>Если не удалось обновить или создать экземпляр, то выкдывается исключение.</remarks>
         Task UpdateAsync(TId idDto);
 
+        /// <summary>Возвращает отражение локального кеша БД.</summary>
+        /// <returns>Метод возвращает всегда одby и тот же экземпляр <see cref="ReadOnlyObservableCollection{T}"/>.</returns>
         ReadOnlyObservableCollection<TId> GetObservableCollection();
 
+        /// <summary>Асинхронная загрузка локального кеша.</summary>
+        /// <returns>Задача в которой выполняется Асинхронная загрузка локального кеша.</returns>
         Task LoadAsync();
-    }
 
+        /// <summary>Получение всех записей.</summary>
+        /// <returns>Последовательность со всеми записями.</returns>
+        /// <remarks>В методе производится новый запрос к БД, в отличии от метода <see cref="GetObservableCollection"/>,
+        /// в котором возвращается отражение локального кеша без нового запроса в БД.</remarks>
+        Task<IEnumerable<TId>> GetAllAsync();
+    }
 }

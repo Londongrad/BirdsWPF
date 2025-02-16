@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BirdsRepository.Configurations
 {
-    public class SpeciesConfiguration : IEntityTypeConfiguration<Species>
+    public class SpeciesConfiguration : IEntityTypeConfiguration<Specie>
     {
-        public void Configure(EntityTypeBuilder<Species> builder)
+        public void Configure(EntityTypeBuilder<Specie> builder)
         {
             builder.HasKey(c => c.Id);
 
@@ -14,8 +14,14 @@ namespace BirdsRepository.Configurations
                 .IsRequired()
                 .HasMaxLength(20);
 
-            builder.HasMany(s => s.Birds)
-                .WithOne(b => b.Species);
+            builder.HasIndex(c => c.Name)
+                .IsUnique();
+
+            builder
+                .HasMany<Bird>()
+                .WithOne()
+                .HasForeignKey(e => e.SpecieId)
+                .IsRequired();
         }
     }
 }

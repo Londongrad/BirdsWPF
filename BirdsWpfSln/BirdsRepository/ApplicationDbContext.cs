@@ -5,14 +5,18 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace BirdsRepository
 {
-    internal class ApplicationDbContext(string dbFullName) : DbContext
+    public partial class ApplicationDbContext(string dbFullName) : DbContext
     {
         public DbSet<Bird>? Birds { get; set; }
-        public DbSet<Species>? Species { get; set; }
+        public DbSet<Specie>? Species { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new SpeciesConfiguration());
             modelBuilder.ApplyConfiguration(new BirdConfiguration());
+
+            modelBuilder.Entity<Specie>().HasData(HasData.GetSpecies());
+            modelBuilder.Entity<Bird>().HasData(HasData.GetBirds());
 
             base.OnModelCreating(modelBuilder);
         }
@@ -28,7 +32,7 @@ namespace BirdsRepository
                 .UseSqlite($"Data Source={DbFullName}");
 
             optionsBuilder.LogTo(Console.WriteLine, [RelationalEventId.CommandExecuted]);
-            //optionsBuilder.UseSqlServer("Data Source=DESKTOP-9OKU3FE\\SQLEXPRESS;Initial Catalog=Birds;Integrated Security=True;Encrypt=False;Trust Server Certificate=True");
         }
+
     }
 }
