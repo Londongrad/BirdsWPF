@@ -41,9 +41,7 @@
 
             </StackPanel>
 
-            <ItemsControl ItemsSource="{Binding BirdsCollectionView, 
-                                                Mode=OneWay, 
-                                                Source={StaticResource mainVM}}"
+            <ItemsControl ItemsSource="{Binding Mode=OneWay, Source={StaticResource birds}}"
                           Margin="0 0 0 0">
                 <d:ItemsControl.ItemsSource>
                     <x:Array Type="rep:Bird">
@@ -87,6 +85,11 @@
 
                             <TextBlock Style="{DynamicResource TextBlockOnBirdsStyle}"
                                        Text="{Binding Departure, ConverterCulture=ru-ru}" />
+
+                            <TextBlock Style="{DynamicResource TextBlockOnBirdsStyle}"
+                                       Tag="{Binding SpecieId, Converter={StaticResource intToSpecie}, Mode=OneWay}"
+                                       Text="{Binding Tag.Name, RelativeSource={RelativeSource Self}}"
+                                       MinWidth="20"/>
 
                             <StackPanel Margin="0 0 10 0">
                                 <StackPanel.Style>

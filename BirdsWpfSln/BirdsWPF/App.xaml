@@ -31,6 +31,24 @@
                 <vctrls:BirdsView />
             </DataTemplate>
 
+
+            <DataTemplate DataType="{x:Type vm:SpeciesViewModel}">
+                <vctrls:SpeciesView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:AddSpecieViewModel}">
+                <vctrls:AddSpecieView/>
+            </DataTemplate>
+
+            <!--<DataTemplate DataType="{x:Type vm:EditSpecieViewModel}">
+                <vctrls:EditSpecieView/>
+            </DataTemplate>-->
+
+            <CollectionViewSource x:Key="birds"
+                                  Source="{Binding Birds, Source={StaticResource mainVM}}"/>
+
+            <vctrls:IntToSpecieConverter x:Key="intToSpecie"
+                                         ViewModel="{StaticResource mainVM}"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

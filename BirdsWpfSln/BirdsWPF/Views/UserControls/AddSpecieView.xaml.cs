@@ -3,11 +3,11 @@
 namespace BirdsWPF.Views.UserControls
 {
     /// <summary>
-    /// Логика взаимодействия для BirdsView.xaml
+    /// Логика взаимодействия для AddSpecieView.xaml
     /// </summary>
-    public partial class BirdsView : UserControl
+    public partial class AddSpecieView : UserControl
     {
-        public BirdsView()
+        public AddSpecieView()
         {
             InitializeComponent();
         }

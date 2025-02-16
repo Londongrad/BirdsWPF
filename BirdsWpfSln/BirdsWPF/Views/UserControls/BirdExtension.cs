@@ -24,9 +24,12 @@ namespace BirdsWPF.Views.UserControls
         /// <summary>Активная Птица.</summary>
         public bool IsActive { get; set; }
 
+        /// <summary>Целочисленный идентификатор <see cref="Specie"/>.</summary>
+        public int SpecieId { get ; set ; }
+
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            return new Bird(Id, Name, Description, Arrival, Departure, IsActive);
+            return new Bird(Id, Name, Description, Arrival, Departure, IsActive, SpecieId);
         }
     }
 }

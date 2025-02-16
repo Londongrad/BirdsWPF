@@ -18,10 +18,10 @@ namespace BirdsViewModels
         private readonly SpeciesViewModel speciesVM;
 
         private readonly AddBirdViewModel addBirdVM;
-         private readonly AddSpecieViewModel addSpecieVM;
+        private readonly AddSpecieViewModel addSpecieVM;
 
-       private static readonly ReadOnlyCollection<string> birdNamesToAdd
-            = Array.AsReadOnly(["Поползень", "Большак", "Гайка", "Воробей", "Амадин", "Дубонос", "Щегол"]);
+        private static readonly ReadOnlyCollection<string> birdNamesToAdd
+             = Array.AsReadOnly(["Поползень", "Большак", "Гайка", "Воробей", "Амадин", "Дубонос", "Щегол"]);
         private static readonly ReadOnlyCollection<string> birdNamesToShow
             = Array.AsReadOnly(["Поползень", "Большак", "Гайка", "Воробей", "Амадин", "Дубонос", "Щегол", "Показать всех", "Только активные", "Только неактивные"]);
         private readonly INavigationService navigator;
@@ -41,9 +41,11 @@ namespace BirdsViewModels
             Species = model.Species.GetObservableCollection();
 
             navigator = this;
-            navigator.NavigateTo(addBirdVM = new());
             navigator.AddCreator(typeof(BirdViewModel), () => this.birdVM);
             navigator.AddCreator(typeof(AddBirdViewModel), () => this.addBirdVM);
+            navigator.AddCreator(typeof(SpeciesViewModel), () => this.speciesVM);
+            navigator.AddCreator(typeof(AddSpecieViewModel), () => this.addSpecieVM);
+            navigator.NavigateTo(addBirdVM);
 
             //Перенести в View
             ////Коллекция для сортировки.
@@ -143,6 +145,12 @@ namespace BirdsViewModels
             }
         );
 
+        public RelayCommand AddSpecieCommand => GetCommand<string>
+        (
+           async name => { addSpecieVM.Name = string.Empty; await model.Species.AddAsync(new Specie(0, name)); },
+           name => ! Species.Any(x => x.Name == name)
+        );
+
         //Это перенести в View
         ///// <summary>
         ///// Команда для сортировки коллекции в зависимости от свойства <see cref="Name"/> <br/>
@@ -158,5 +166,7 @@ namespace BirdsViewModels
         //    () => !string.IsNullOrEmpty(Name)
         //);
         #endregion
+
+        public Specie? GetSpecie(int id) => Species.FirstOrDefault(sp => sp.Id == id);
     }
 }

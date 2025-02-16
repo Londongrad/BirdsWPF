@@ -13,6 +13,7 @@ namespace BirdsWPF
             {
                 MainBirdsViewModel vm = (MainBirdsViewModel)FindResource("mainVM");
                 vm.Birds.EnableCollectionSynchronization();
+                vm.Species.EnableCollectionSynchronization();
                 await vm.LoadAsync();
             };
         }

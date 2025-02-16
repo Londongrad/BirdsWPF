@@ -2,7 +2,7 @@
 
 namespace BirdsRepository
 {
-    public partial class ApplicationDbContext
+    public partial class BirdsDbContext
     {
         /// <summary>Класс с демо-данными для первоначальной инициализации новой БД.</summary>
         private class HasData

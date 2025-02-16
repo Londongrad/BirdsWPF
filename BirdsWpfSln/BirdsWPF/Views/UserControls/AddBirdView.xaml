@@ -35,6 +35,12 @@
                  Text="{Binding Arrival, 
                                 ConverterCulture=ru-ru}" />
 
+        <ComboBox ItemsSource="{Binding Species, Mode=OneWay, Source={StaticResource mainVM}}"
+                  SelectedValuePath="Id"
+                  SelectedValue="{Binding SpecieId}"
+                  Margin="10"
+                  DisplayMemberPath="Name"/>
+
         <Button Content="Save the bird"
                 Command="{Binding AddBirdCommand, Mode=OneWay, Source={StaticResource mainVM}}"
                 CommandParameter="{Binding}"

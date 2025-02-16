@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace BirdsRepository
 {
-    public partial class ApplicationDbContext(string dbFullName) : DbContext
+    public partial class BirdsDbContext(string dbFullName) : DbContext
     {
         public DbSet<Bird>? Birds { get; set; }
         public DbSet<Specie>? Species { get; set; }

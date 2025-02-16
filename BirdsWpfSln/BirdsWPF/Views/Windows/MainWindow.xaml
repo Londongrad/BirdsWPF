@@ -64,6 +64,14 @@
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding Path=(comm:INavigationService.NavigateToTypeCommand), Mode=OneWay}"
                              CommandParameter="{x:Type vm:BirdViewModel}"/>
+                <RadioButton Content="Add Specie"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding Path=(comm:INavigationService.NavigateToTypeCommand), Mode=OneWay}"
+                             CommandParameter="{x:Type vm:AddSpecieViewModel}"/>
+                <RadioButton Content="Specie"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding Path=(comm:INavigationService.NavigateToTypeCommand), Mode=OneWay}"
+                             CommandParameter="{x:Type vm:SpeciesViewModel}"/>
                 <RadioButton Content="Import"
                              Style="{StaticResource MenuButtonTheme}"/>
 

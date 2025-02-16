@@ -1,4 +1,5 @@
-﻿using BirdsRepository;
+﻿using BirdsCommon.Repository;
+using BirdsRepository;
 using BirdsViewModels;
 using System.Windows.Markup;
 
@@ -19,7 +20,7 @@ namespace BirdsWPF
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            return new MainBirdsViewModel(new DbBirdsRepository(DbFileName!));
+            return new MainBirdsViewModel(new DbBirdsModel(new BirdsDbContext(DbFileName!), () => new BirdsDbContext(DbFileName!)));
         }
     }
 }
