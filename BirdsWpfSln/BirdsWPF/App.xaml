@@ -40,9 +40,9 @@
                 <vctrls:AddSpecieView/>
             </DataTemplate>
 
-            <!--<DataTemplate DataType="{x:Type vm:EditSpecieViewModel}">
+            <DataTemplate DataType="{x:Type vm:EditSpecieViewModel}">
                 <vctrls:EditSpecieView/>
-            </DataTemplate>-->
+            </DataTemplate>
 
             <CollectionViewSource x:Key="birds"
                                   Source="{Binding Birds, Source={StaticResource mainVM}}"/>

@@ -3,8 +3,6 @@ using BirdsCommon.Command;
 using BirdsCommon.Repository;
 using BirdsCommon.ViewModelBase;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Windows.Data;
 
 namespace BirdsViewModels
 {
@@ -19,6 +17,8 @@ namespace BirdsViewModels
 
         private readonly AddBirdViewModel addBirdVM;
         private readonly AddSpecieViewModel addSpecieVM;
+
+        private readonly EditSpecieViewModel editSpecieVM;
 
         private static readonly ReadOnlyCollection<string> birdNamesToAdd
              = Array.AsReadOnly(["Поползень", "Большак", "Гайка", "Воробей", "Амадин", "Дубонос", "Щегол"]);
@@ -37,6 +37,8 @@ namespace BirdsViewModels
             addBirdVM = new();
             addSpecieVM = new();
 
+            editSpecieVM = new();
+
             Birds = model.Birds.GetObservableCollection();
             Species = model.Species.GetObservableCollection();
 
@@ -45,14 +47,8 @@ namespace BirdsViewModels
             navigator.AddCreator(typeof(AddBirdViewModel), () => this.addBirdVM);
             navigator.AddCreator(typeof(SpeciesViewModel), () => this.speciesVM);
             navigator.AddCreator(typeof(AddSpecieViewModel), () => this.addSpecieVM);
+            navigator.AddCreator(typeof(EditSpecieViewModel), () => this.editSpecieVM);
             navigator.NavigateTo(addBirdVM);
-
-            //Перенести в View
-            ////Коллекция для сортировки.
-            //BirdsCollectionView = CollectionViewSource.GetDefaultView(Birds);
-            //BirdsCollectionView.SortDescriptions.Add(new SortDescription(nameof(Bird.IsActive), ListSortDirection.Descending));
-            //BirdsCollectionView.SortDescriptions.Add(new SortDescription(nameof(Bird.Arrival), ListSortDirection.Descending));
-            //BirdsCollectionView.SortDescriptions.Add(new SortDescription(nameof(Bird.Name), ListSortDirection.Descending));
         }
 
         /// <summary>Предоставляет статическую коллекцию <see cref="privateBirdNameGroups"/>. 
@@ -67,16 +63,8 @@ namespace BirdsViewModels
         //Для чего это свойство?
         //public string? Name { get => Get<string>(); set => Set(value); }
 
-        //Полное количество можно получить из свойства Birds.Count,
-        //а после фильтрации из CollectionView.Count
-        //public int NumberOfBirds { get => Get<int>(); set => Set(value); }
         public DateOnly Departure { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
-        //Это нужно в View перенести
-        ///// <summary>
-        ///// Коллекция для сортировки
-        ///// </summary>
-        //public ICollectionView BirdsCollectionView { get; }
         #endregion
 
         #region Methods
@@ -88,30 +76,6 @@ namespace BirdsViewModels
 
         public void RaiseCurrentChanged() => RaisePropertyChanged(nameof(INavigationService.Current));
 
-        //Это в View
-        //private bool FilterByName(object obj)
-        //{
-        //    if (obj is Bird bird)
-        //    {
-        //        switch (Name)
-        //        {
-        //            case "Амадин":
-        //            case "Воробей":
-        //            case "Большак":
-        //            case "Гайка":
-        //            case "Поползень":
-        //            case "Дубонос":
-        //                return bird.Name!.Contains(Name);
-        //            case "Только активные":
-        //                return bird.IsActive == true;
-        //            case "Только неактивные":
-        //                return bird.IsActive == false;
-        //            default:
-        //                return true;
-        //        }
-        //    }
-        //    return false;
-        //}
         #endregion
 
         #region Commands
@@ -151,20 +115,17 @@ namespace BirdsViewModels
            name => ! Species.Any(x => x.Name == name)
         );
 
-        //Это перенести в View
-        ///// <summary>
-        ///// Команда для сортировки коллекции в зависимости от свойства <see cref="Name"/> <br/>
-        ///// Значение свойства задается из ComboBox в окне BirdsView
-        ///// </summary>
-        //public RelayCommand ShowOnlyCommand => GetCommand
-        //(
-        //    () =>
-        //    {
-        //        BirdsCollectionView.Filter = FilterByName;
-        //        NumberOfBirds = BirdsCollectionView.Cast<Bird>().Count();
-        //    },
-        //    () => !string.IsNullOrEmpty(Name)
-        //);
+        public RelayCommand EditSpecieCommand => GetCommand<Specie>
+        (
+           sp => { editSpecieVM.Specie = sp; navigator.NavigateTo(editSpecieVM); }
+        );
+
+        public RelayCommand UpdateSpecieCommand => GetCommand<EditSpecieViewModel>
+        (
+           async eVM => await model.Species.UpdateAsync(new Specie(eVM.Specie!.Id, eVM.Name!)),
+           eVM => ! (string.IsNullOrWhiteSpace(eVM.Name) || Species.Any(x => x.Name == eVM.Name))
+        );
+
         #endregion
 
         public Specie? GetSpecie(int id) => Species.FirstOrDefault(sp => sp.Id == id);

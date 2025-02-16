@@ -11,36 +11,39 @@
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type=vm:BirdViewModel, 
                                               IsDesignTimeCreatable=False}">
-    <ScrollViewer VerticalScrollBarVisibility="Visible"
-                  HorizontalScrollBarVisibility="Hidden"
-                  Focusable="False">
 
-        <StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-            <StackPanel>
-                <TextBlock Text="{Binding NumberOfBirds,
-                                          StringFormat=Total number of birds: {0},
-                                          Mode=TwoWay,
-                                          Source={StaticResource mainVM}}"
+
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="{Binding Count, Mode=OneWay, StringFormat=Total number of birds: \{0\}, Source={StaticResource birds}}"
                            Margin="0 0 0 20"
                            Foreground="White"
                            FontSize="24"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center" />
 
-                <ComboBox ItemsSource="{Binding BirdNamesToShow,
+            <ComboBox ItemsSource="{Binding BirdNamesToShow,
                                                 Source={StaticResource mainVM}}"
                           SelectedValue="{Binding Name,
                                                   Source={StaticResource mainVM}}" />
 
-                <Button    Content="Show only"
+            <Button    Content="Show only"
                            Command="{Binding ShowOnlyCommand,
                                              Mode=OneWay, 
                                              Source={StaticResource mainVM}}"
                            Style="{StaticResource AddBirdButton}" />
 
-            </StackPanel>
+        </StackPanel>
 
+        <ScrollViewer VerticalScrollBarVisibility="Visible"
+                      HorizontalScrollBarVisibility="Hidden"
+                      Focusable="False"
+                      Grid.Row="1">
             <ItemsControl ItemsSource="{Binding Mode=OneWay, Source={StaticResource birds}}"
                           Margin="0 0 0 0">
                 <d:ItemsControl.ItemsSource>
@@ -136,6 +139,6 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-        </StackPanel>
-    </ScrollViewer>
+        </ScrollViewer>
+    </Grid>
 </UserControl>

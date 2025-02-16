@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:BirdsWPF.Views.UserControls"
              xmlns:vm="clr-namespace:BirdsViewModels;assembly=BirdsViewModels"
              xmlns:comm="clr-namespace:BirdsCommon;assembly=BirdsCommon"
+             xmlns:rep="clr-namespace:BirdsCommon.Repository;assembly=BirdsCommon"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type=vm:SpeciesViewModel, 
@@ -14,7 +15,7 @@
         <ListBox x:Name="speciesList" ItemsSource="{Binding Species, Mode=OneWay, Source={StaticResource mainVM}}"
                  SelectionChanged="OnSelectedSpecieChanged">
             <ItemsControl.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate DataType="{x:Type rep:Specie}">
                     <StackPanel Orientation="Horizontal">
                         <CheckBox IsChecked="{Binding IsSelected,
                                                       Mode=TwoWay,
@@ -26,7 +27,7 @@
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="{}{0}: {1}">
                                             <Binding Path="Id"/>
-                                            <Binding Path="ModelEntity.Name"/>
+                                            <Binding Path="Name"/>
                                         </MultiBinding>
                                     </TextBlock.Text>
                                 </TextBlock>
@@ -40,7 +41,7 @@
             </ItemsControl.ItemTemplate>
         </ListBox>
         <ItemsControl ItemsSource="{Binding Mode=OneWay, Source={StaticResource birds}}"
-                      DisplayMemberPath="ModelEntity.Name"
+                      DisplayMemberPath="Name"
                       Margin="10"
                       Foreground="White"/>
     </UniformGrid>
