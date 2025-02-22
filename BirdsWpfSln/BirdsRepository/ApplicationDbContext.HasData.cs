@@ -20,7 +20,7 @@ namespace BirdsRepository
 Орёл 3"
                 .Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(line => line.Split())
-                .Select((s, i) => new Bird(i + 1, s[0], "описание для " + s[0], new DateOnly(), new DateOnly(), true, int.Parse(s[1])))
+                .Select((s, i) => new Bird(i + 1, s[0], "описание для " + s[0], DateOnly.FromDateTime(DateTime.Now), new DateOnly(), true, int.Parse(s[1])))
                 .ToArray();
             public static IEnumerable<Specie> GetSpecies() => species.Select(x => x);
             public static IEnumerable<Bird> GetBirds() => birds.Select(x => x);

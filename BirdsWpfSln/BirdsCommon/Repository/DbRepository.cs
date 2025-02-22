@@ -21,6 +21,7 @@ namespace BirdsCommon.Repository
 
         public DbRepository(DbContext context, Func<DbContext> contextCreator)
         {
+            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
             this.context = context;
             dbSet = context.Set<TId>();
