@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.ComponentModel;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace BirdsWPF.Views.UserControls
@@ -15,22 +16,26 @@ namespace BirdsWPF.Views.UserControls
 
         private void OnBackCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = listBirds.SelectedIndex > 0;
+            ICollectionView collectionView = (ICollectionView)e.Parameter;
+            e.CanExecute = collectionView is not null &&  collectionView.CurrentPosition > 0;
         }
 
         private void OnForwardCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = listBirds.SelectedIndex < listBirds.Items.Count - 1;
+            ICollectionView collectionView = (ICollectionView)e.Parameter;
+            e.CanExecute = collectionView is not null &&  collectionView.CurrentPosition < collectionView.Cast<object>().Count() - 1;
         }
 
         private void OnBackExecute(object sender, ExecutedRoutedEventArgs e)
         {
-            listBirds.SelectedIndex--;
+            ICollectionView collectionView = (ICollectionView)e.Parameter;
+            collectionView.MoveCurrentToPrevious();
         }
 
         private void OnForwardExecute(object sender, ExecutedRoutedEventArgs e)
         {
-            listBirds.SelectedIndex++;
+            ICollectionView collectionView = (ICollectionView)e.Parameter;
+            collectionView.MoveCurrentToNext();
         }
     }
 }

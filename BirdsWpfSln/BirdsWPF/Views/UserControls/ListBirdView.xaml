@@ -13,9 +13,7 @@
         <CommandBinding Command="BrowseForward" CanExecute="OnForwardCanExecute" Executed="OnForwardExecute"/>
     </FrameworkElement.CommandBindings>
     <Grid>
-        <ListBox Name="listBirds" ItemsSource="{Binding Mode=OneWay, Source={StaticResource birds}}"
-                 Visibility="Hidden"/>
-        <ContentControl Content="{Binding SelectedItem, ElementName=listBirds}">
+        <ContentControl Content="{Binding CurrentItem, Mode=OneWay, Source={StaticResource birds}}">
             <d:ContentControl.Content>
                 <local:Bird Name="qwerty" IsActive="False" />
             </d:ContentControl.Content>
@@ -26,31 +24,32 @@
                                    Text="Bird's type" />
 
                         <TextBlock Style="{DynamicResource TextBlockOnBirdsStyle}"
-                                       Tag="{Binding SpecieId, Converter={StaticResource intToSpecie}, Mode=OneWay}"
-                                       Text="{Binding Tag.Name, RelativeSource={RelativeSource Self}}"
-                                       MinWidth="20"/>
+                                   Tag="{Binding SpecieId, Converter={StaticResource intToSpecie}, Mode=OneWay}"
+                                   Text="{Binding Tag.Name, RelativeSource={RelativeSource Self}}"
+                                   MinWidth="20"/>
 
 
                         <TextBlock Style="{DynamicResource TextBlockOnAddStyle}"
-                   Text="Description" />
+                                   Text="Description" />
 
                         <TextBlock Style="{DynamicResource TextBlockOnAddStyle}"
-                 Text="{Binding Description}" />
+                                   Text="{Binding Description}" />
 
 
                         <TextBlock Style="{DynamicResource TextBlockOnAddStyle}"
-                   Text="Arrival" />
+                                   Text="Arrival" />
 
                         <TextBlock Style="{DynamicResource TextBlockOnAddStyle}"
-                 Text="{Binding Arrival, 
-                                ConverterCulture=ru-ru}" />
+                                   Text="{Binding Arrival, ConverterCulture=ru-ru}" />
 
                         <Grid>
                             <Button Content="Предыдущий"
                                     Command="BrowseBack"
+                                    CommandParameter="{Binding Mode=OneWay, Source={StaticResource birds}}"
                                     Style="{StaticResource AddBirdButton}" HorizontalAlignment="Left" />
                             <Button Content="Следующий"
                                     Command="BrowseForward"
+                                    CommandParameter="{Binding Mode=OneWay, Source={StaticResource birds}}"
                                     Style="{StaticResource AddBirdButton}" HorizontalAlignment="Right" />
                         </Grid>
                     </StackPanel>
