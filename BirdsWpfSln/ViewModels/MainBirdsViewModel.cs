@@ -13,6 +13,7 @@ namespace BirdsViewModels
         private readonly IBirdsModel model;
 
         private readonly BirdViewModel birdVM;
+        private readonly ListBirdViewModel lbirdVM;
         private readonly SpeciesViewModel speciesVM;
 
         private readonly AddBirdViewModel addBirdVM;
@@ -32,6 +33,7 @@ namespace BirdsViewModels
             this.model = model;
 
             birdVM = new(model.Birds);
+            lbirdVM = new();
             speciesVM = new(model.Species);
 
             addBirdVM = new();
@@ -44,6 +46,7 @@ namespace BirdsViewModels
 
             navigator = this;
             navigator.AddCreator(typeof(BirdViewModel), () => this.birdVM);
+            navigator.AddCreator(typeof(ListBirdViewModel), () => this.lbirdVM);
             navigator.AddCreator(typeof(AddBirdViewModel), () => this.addBirdVM);
             navigator.AddCreator(typeof(SpeciesViewModel), () => this.speciesVM);
             navigator.AddCreator(typeof(AddSpecieViewModel), () => this.addSpecieVM);

@@ -64,6 +64,10 @@
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding Path=(comm:INavigationService.NavigateToTypeCommand), Mode=OneWay}"
                              CommandParameter="{x:Type vm:BirdViewModel}"/>
+                <RadioButton Content="ListBirds"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding Path=(comm:INavigationService.NavigateToTypeCommand), Mode=OneWay}"
+                             CommandParameter="{x:Type vm:ListBirdViewModel}"/>
                 <RadioButton Content="Add Specie"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding Path=(comm:INavigationService.NavigateToTypeCommand), Mode=OneWay}"

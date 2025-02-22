@@ -29,7 +29,7 @@ namespace BirdsWPF.Views.UserControls
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            return new Bird(Id, Name, Description, Arrival, Departure, IsActive, SpecieId);
+            return new Bird(Id, Name ?? string.Empty, Description, Arrival, Departure, IsActive, SpecieId);
         }
     }
 }
