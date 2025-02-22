@@ -7,13 +7,15 @@
              xmlns:vm="clr-namespace:BirdsViewModels;assembly=BirdsViewModels"
              xmlns:comm="clr-namespace:BirdsCommon;assembly=BirdsCommon"
              xmlns:rep="clr-namespace:BirdsCommon.Repository;assembly=BirdsCommon"
+             xmlns:viewclasses="clr-namespace:BirdsWPF.ViewClasses"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              d:DataContext="{d:DesignInstance Type=vm:SpeciesViewModel, 
                                               IsDesignTimeCreatable=False}">
     <UniformGrid Columns="2">
         <ListBox x:Name="speciesList" ItemsSource="{Binding Species, Mode=OneWay, Source={StaticResource mainVM}}"
-                 SelectionChanged="OnSelectedSpecieChanged">
+                 SelectionMode="Multiple"
+                 viewclasses:BirdsViewSource.BirdsSource="{DynamicResource birds}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type rep:Specie}">
                     <StackPanel Orientation="Horizontal">

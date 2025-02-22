@@ -6,6 +6,5 @@ namespace BirdsViewModels
     {
         /// <summary>Имя.</summary>
         public string? Name { get => Get<string?>(); set => Set(value); }
-
     }
 }

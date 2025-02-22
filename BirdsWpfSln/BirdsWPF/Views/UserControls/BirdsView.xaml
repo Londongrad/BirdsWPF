@@ -27,16 +27,9 @@
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center" />
 
-            <ComboBox ItemsSource="{Binding BirdNamesToShow,
-                                                Source={StaticResource mainVM}}"
-                          SelectedValue="{Binding Name,
-                                                  Source={StaticResource mainVM}}" />
+            <TextBlock Text="Текст для поиска во всех свойствах Bird. Ищутся все части текста разделённые пробелом:" HorizontalAlignment="Center"/>
 
-            <Button    Content="Show only"
-                           Command="{Binding ShowOnlyCommand,
-                                             Mode=OneWay, 
-                                             Source={StaticResource mainVM}}"
-                           Style="{StaticResource AddBirdButton}" />
+            <TextBox Text="{Binding Text, Mode=TwoWay, Source={StaticResource textFilter}, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,10,0"/>
 
         </StackPanel>
 

@@ -4,6 +4,7 @@
              xmlns:vm="clr-namespace:BirdsViewModels;assembly=BirdsViewModels"
              xmlns:vctrls="clr-namespace:BirdsWPF.Views.UserControls"
              xmlns:local="clr-namespace:BirdsWPF"
+             xmlns:viewclasses="clr-namespace:BirdsWPF.ViewClasses" xmlns:componentmodel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              Startup="OnStartup"
              ShutdownMode="OnMainWindowClose">
     <Application.Resources>
@@ -19,16 +20,20 @@
                 <ResourceDictionary Source="/wwwroot/Themes/TextBoxBirdsTheme.xaml" />
                 <ResourceDictionary Source="/wwwroot/Themes/ScrollViewerTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            
+
             <local:MainBirdsViewModel x:Key="mainVM"
                                       DbFileName="birds.db"/>
-            
+
             <DataTemplate DataType="{x:Type vm:AddBirdViewModel}">
                 <vctrls:AddBirdView />
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type vm:BirdViewModel}">
                 <vctrls:BirdsView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:ListBirdViewModel}">
+                <vctrls:ListBirdView/>
             </DataTemplate>
 
 
@@ -44,8 +49,17 @@
                 <vctrls:EditSpecieView/>
             </DataTemplate>
 
-            <CollectionViewSource x:Key="birds"
-                                  Source="{Binding Birds, Source={StaticResource mainVM}}"/>
+            <viewclasses:TextFilterHelper x:Key="textFilter"/>
+            <viewclasses:BirdsViewSource x:Key="birds"
+                                         Source="{Binding Birds, Source={StaticResource mainVM}}"
+                                         TextFilter="{Binding Text, Source={StaticResource textFilter}}"
+                                         IsLiveSortingRequested="True">
+                <CollectionViewSource.SortDescriptions>
+                    <componentmodel:SortDescription PropertyName="IsActive" Direction="Descending"/>
+                    <componentmodel:SortDescription PropertyName="Arrival" Direction="Descending"/>
+                    <componentmodel:SortDescription PropertyName="Name" Direction="Descending"/>
+                </CollectionViewSource.SortDescriptions>
+            </viewclasses:BirdsViewSource>
 
             <vctrls:IntToSpecieConverter x:Key="intToSpecie"
                                          ViewModel="{StaticResource mainVM}"/>
