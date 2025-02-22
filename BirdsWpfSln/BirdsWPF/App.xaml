@@ -4,6 +4,7 @@
              xmlns:vm="clr-namespace:BirdsViewModels;assembly=BirdsViewModels"
              xmlns:vctrls="clr-namespace:BirdsWPF.Views.UserControls"
              xmlns:local="clr-namespace:BirdsWPF"
+             xmlns:viewclasses="clr-namespace:BirdsWPF.ViewClasses"
              Startup="OnStartup"
              ShutdownMode="OnMainWindowClose">
     <Application.Resources>
@@ -44,8 +45,10 @@
                 <vctrls:EditSpecieView/>
             </DataTemplate>
 
-            <CollectionViewSource x:Key="birds"
-                                  Source="{Binding Birds, Source={StaticResource mainVM}}"/>
+            <viewclasses:TextFilterHelper x:Key="textFilter"/>
+            <viewclasses:BirdsViewSource x:Key="birds"
+                                         Source="{Binding Birds, Source={StaticResource mainVM}}"
+                                         TextFilter="{Binding Text, Source={StaticResource textFilter}}"/>
 
             <vctrls:IntToSpecieConverter x:Key="intToSpecie"
                                          ViewModel="{StaticResource mainVM}"/>
