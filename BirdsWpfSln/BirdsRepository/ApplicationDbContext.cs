@@ -20,7 +20,6 @@ namespace BirdsRepository
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
             //optionsBuilder
             //    .EnableSensitiveDataLogging()
             //    .UseSqlite($"Data Source={DbFullName}");

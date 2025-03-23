@@ -76,6 +76,7 @@ namespace BirdsViewModels
                     case "Гайка":
                     case "Поползень":
                     case "Дубонос":
+                    case "Щегол":
                         return bird.Name!.Contains(Name);
                     case "Только активные":
                         return bird.IsActive == true;
