@@ -4,7 +4,8 @@
              xmlns:vm="clr-namespace:BirdsViewModels;assembly=BirdsViewModels"
              xmlns:vctrls="clr-namespace:BirdsWPF.Views.UserControls"
              xmlns:local="clr-namespace:BirdsWPF"
-             xmlns:viewclasses="clr-namespace:BirdsWPF.ViewClasses" xmlns:componentmodel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:viewclasses="clr-namespace:BirdsWPF.ViewClasses" 
+             xmlns:componentmodel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              Startup="OnStartup"
              ShutdownMode="OnMainWindowClose">
     <Application.Resources>

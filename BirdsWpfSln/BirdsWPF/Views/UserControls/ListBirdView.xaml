@@ -6,12 +6,13 @@
              xmlns:local="clr-namespace:BirdsWPF.Views.UserControls"
              xmlns:rep="clr-namespace:BirdsCommon.Repository;assembly=BirdsCommon"
              xmlns:vm="clr-namespace:BirdsViewModels;assembly=BirdsViewModels"
+             d:DataContext="{d:DesignInstance Type=vm:ListBirdViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <FrameworkElement.CommandBindings>
+             d:DesignHeight="500" d:DesignWidth="800">
+    <UserControl.CommandBindings>
         <CommandBinding Command="BrowseBack" CanExecute="OnBackCanExecute" Executed="OnBackExecute"/>
         <CommandBinding Command="BrowseForward" CanExecute="OnForwardCanExecute" Executed="OnForwardExecute"/>
-    </FrameworkElement.CommandBindings>
+    </UserControl.CommandBindings>
     <Grid>
         <ContentControl Content="{Binding CurrentItem, Mode=OneWay, Source={StaticResource birds}}">
             <d:ContentControl.Content>
@@ -22,6 +23,12 @@
                     <StackPanel>
                         <TextBlock Style="{DynamicResource TextBlockOnAddStyle}"
                                    Text="Bird's type" />
+
+                        <TextBlock Style="{DynamicResource TextBlockOnAddStyle}"
+                                   Text="{Binding Name}" />
+
+                        <TextBlock Style="{DynamicResource TextBlockOnAddStyle}"
+                                   Text="Bird's species" />
 
                         <TextBlock Style="{DynamicResource TextBlockOnBirdsStyle}"
                                    Tag="{Binding SpecieId, Converter={StaticResource intToSpecie}, Mode=OneWay}"
@@ -46,11 +53,13 @@
                             <Button Content="Предыдущий"
                                     Command="BrowseBack"
                                     CommandParameter="{Binding Mode=OneWay, Source={StaticResource birds}}"
-                                    Style="{StaticResource AddBirdButton}" HorizontalAlignment="Left" />
+                                    Style="{StaticResource AddBirdButton}" 
+                                    HorizontalAlignment="Left" />
                             <Button Content="Следующий"
                                     Command="BrowseForward"
                                     CommandParameter="{Binding Mode=OneWay, Source={StaticResource birds}}"
-                                    Style="{StaticResource AddBirdButton}" HorizontalAlignment="Right" />
+                                    Style="{StaticResource AddBirdButton}" 
+                                    HorizontalAlignment="Right" />
                         </Grid>
                     </StackPanel>
                 </DataTemplate>
