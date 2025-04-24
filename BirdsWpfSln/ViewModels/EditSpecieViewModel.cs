@@ -6,6 +6,7 @@ namespace BirdsViewModels
     public class EditSpecieViewModel : ViewModelBase
     {
         public Specie? Specie{ get => Get<Specie>(); set => Set(value); }
+
         /// <summary>Имя.</summary>
         public string? Name { get => Get<string?>(); set => Set(value); }
 

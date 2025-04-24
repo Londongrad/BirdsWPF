@@ -32,9 +32,9 @@ namespace BirdsViewModels
         {
             this.model = model;
 
-            birdVM = new(model.Birds);
+            birdVM = new();
             lbirdVM = new();
-            speciesVM = new(model.Species);
+            speciesVM = new();
 
             addBirdVM = new();
             addSpecieVM = new();
@@ -54,18 +54,14 @@ namespace BirdsViewModels
             navigator.NavigateTo(addBirdVM);
         }
 
+        #region Properties
+
         /// <summary>Предоставляет статическую коллекцию <see cref="privateBirdNameGroups"/>. 
         /// Можно было обойтись статическим полем, но для облегчения привязок создано это прокси свойство.</summary>
         public ReadOnlyCollection<string> BirdNamesToAdd => birdNamesToAdd;
         public ReadOnlyCollection<string> BirdNamesToShow => birdNamesToShow;
-
-        #region Properties
         public ReadOnlyObservableCollection<Bird> Birds { get; }
         public ReadOnlyObservableCollection<Specie> Species { get; }
-
-        //Для чего это свойство?
-        //public string? Name { get => Get<string>(); set => Set(value); }
-
         public DateOnly Departure { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
         #endregion
@@ -77,6 +73,8 @@ namespace BirdsViewModels
             //NumberOfBirds = Birds.Count;
         }
 
+        public Specie? GetSpecie(int id) => Species.FirstOrDefault(sp => sp.Id == id);
+
         public void RaiseCurrentChanged() => RaisePropertyChanged(nameof(INavigationService.Current));
 
         #endregion
@@ -87,7 +85,6 @@ namespace BirdsViewModels
             async birdVM =>
             {
                 await model.Birds.AddAsync(new Bird(birdVM.Id, birdVM.Name!, birdVM.Description, birdVM.Arrival, birdVM.Departure, birdVM.IsActive, birdVM.SpecieId));
-                //NumberOfBirds++;
             },
             birdVM => !string.IsNullOrWhiteSpace(birdVM.Name)
         );
@@ -105,11 +102,7 @@ namespace BirdsViewModels
         );
         public RelayCommand RemoveBirdCommand => GetCommand<Bird>
         (
-            async bird =>
-            {
-                await model.Birds.DeleteAsync(bird.Id);
-                //NumberOfBirds--;
-            }
+            async bird => { await model.Birds.DeleteAsync(bird.Id); }
         );
 
         public RelayCommand AddSpecieCommand => GetCommand<string>
@@ -130,7 +123,5 @@ namespace BirdsViewModels
         );
 
         #endregion
-
-        public Specie? GetSpecie(int id) => Species.FirstOrDefault(sp => sp.Id == id);
     }
 }

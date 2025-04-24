@@ -14,22 +14,32 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
 
         <StackPanel Grid.Row="0">
-            <TextBlock Text="{Binding Count, Mode=OneWay, StringFormat=Total number of birds: \{0\}, Source={StaticResource birds}}"
-                           Margin="0 0 0 20"
-                           Foreground="White"
-                           FontSize="24"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center" />
+            <TextBlock Text="{Binding Count, 
+                Mode=OneWay, 
+                StringFormat='Total number of birds: {0}', 
+                Source={StaticResource birds}}"
+                       Margin="0 0 0 20"
+                       Foreground="White"
+                       FontSize="24"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center" />
 
-            <TextBlock Text="Текст для поиска во всех свойствах Bird. Ищутся все части текста разделённые пробелом:" HorizontalAlignment="Center"/>
+            <TextBlock Text="Текст для поиска во всех свойствах Bird. Ищутся все части текста разделённые пробелом:"
+                       HorizontalAlignment="Center"
+                       FontSize="20"
+                       Foreground="AliceBlue" />
 
-            <TextBox Text="{Binding Text, Mode=TwoWay, Source={StaticResource textFilter}, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,10,0"/>
+            <TextBox Text="{Binding Text, 
+                Mode=TwoWay, 
+                Source={StaticResource textFilter}, 
+                UpdateSourceTrigger=PropertyChanged}"
+                     Margin="10,0,10,0" />
 
         </StackPanel>
 
@@ -37,7 +47,8 @@
                       HorizontalScrollBarVisibility="Hidden"
                       Focusable="False"
                       Grid.Row="1">
-            <ItemsControl ItemsSource="{Binding Mode=OneWay, Source={StaticResource birds}}"
+            <ItemsControl ItemsSource="{Binding Mode=OneWay, 
+                Source={StaticResource birds}}"
                           Margin="0 0 0 0">
                 <d:ItemsControl.ItemsSource>
                     <x:Array Type="rep:Bird">
@@ -85,7 +96,7 @@
                             <TextBlock Style="{DynamicResource TextBlockOnBirdsStyle}"
                                        Tag="{Binding SpecieId, Converter={StaticResource intToSpecie}, Mode=OneWay}"
                                        Text="{Binding Tag.Name, RelativeSource={RelativeSource Self}}"
-                                       MinWidth="20"/>
+                                       MinWidth="20" />
 
                             <StackPanel Margin="0 0 10 0">
                                 <StackPanel.Style>
@@ -100,7 +111,7 @@
                                     </Style>
                                 </StackPanel.Style>
 
-                                <Button Style="{DynamicResource DeleteButtonStyle}" 
+                                <Button Style="{DynamicResource DeleteButtonStyle}"
                                         Content="Удалить"
                                         Command="{Binding DeleteBirdCommand, 
                                                           Mode=OneWay, 
@@ -114,7 +125,7 @@
                                                         Source={StaticResource mainVM}}" />
 
                             </StackPanel>
-                            <Button Style="{DynamicResource DeleteButtonStyle}" 
+                            <Button Style="{DynamicResource DeleteButtonStyle}"
                                     Command="{Binding RemoveBirdCommand, 
                                                       Mode=OneWay, 
                                                       Source={StaticResource mainVM}}"

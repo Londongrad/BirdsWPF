@@ -6,52 +6,21 @@
         xmlns:vm="clr-namespace:BirdsViewModels;assembly=BirdsViewModels" 
         xmlns:comm="clr-namespace:BirdsCommon;assembly=BirdsCommon"
         mc:Ignorable="d"
-        Height="900"
-        Width="1500"
-        WindowStyle="None"
-        ResizeMode="CanResize"
+        Height="800"
+        MinHeight="600"
+        Width="1400"
+        MinWidth="1000"
         Background="Transparent"
-        AllowsTransparency="True"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         WindowStartupLocation="CenterScreen"
         DataContext="{DynamicResource mainVM}">
 
-    <!--<d:FrameworkElement.DataContext>
-        <vm:>
-    </d:FrameworkElement.DataContext>-->
-    <!--<Window.Resources>
-        <vm:MainBirdsViewModel/>
-    </Window.Resources>-->
-    <Border Background="#272544"
-            CornerRadius="40">
+    <Border Background="#272544" >
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="60" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-
-            <TextBlock Text="Vismut"
-                       VerticalAlignment="Top"
-                       HorizontalAlignment="Left"
-                       Foreground="White"
-                       FontSize="28"
-                       Margin="20,20,0,0" />
-
-            <Button Grid.Column="1"
-                    HorizontalAlignment="Right"
-                    Width="40"
-                    Height="40"
-                    Margin="0 0 40 0"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                    Click="Button_Click">
-                <Image Source="/wwwroot/Images/shutdown.png" />
-            </Button>
 
             <StackPanel VerticalAlignment="Center"
                         Grid.Row="1">

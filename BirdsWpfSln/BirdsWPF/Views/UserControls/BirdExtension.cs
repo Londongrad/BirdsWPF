@@ -9,7 +9,7 @@ namespace BirdsWPF.Views.UserControls
         public int Id { get ; set ; }
 
         /// <summary>Имя.</summary>
-        public string? Name { get; set; }
+        public string Name { get; set; } = null!;
 
         /// <summary>Описание.</summary>
         public string? Description { get; set; }
@@ -29,7 +29,7 @@ namespace BirdsWPF.Views.UserControls
 
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            return new Bird(Id, Name ?? string.Empty, Description, Arrival, Departure, IsActive, SpecieId);
+            return new Bird(Id, Name, Description, Arrival, Departure, IsActive, SpecieId);
         }
     }
 }
