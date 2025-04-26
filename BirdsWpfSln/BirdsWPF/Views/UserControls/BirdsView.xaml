@@ -135,8 +135,7 @@
                                                      RelativeSource={RelativeSource Self}}">
                                 <Image VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
-                                       Source="/wwwroot/Images/file_basket_red.png"
-                                       Width="30" />
+                                       Source="/wwwroot/Images/file_basket_red.png"/>
                             </Button>
 
                         </StackPanel>
