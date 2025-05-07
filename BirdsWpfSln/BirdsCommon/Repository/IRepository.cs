@@ -51,6 +51,8 @@ namespace BirdsCommon.Repository
 
             // Проверка наличия БД и нужного DbSet.
             DbContext context = contextCreator();
+
+            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
             _ = context.Set<TId>() ?? throw new ArgumentException($"{nameof(contextCreator)} создаёт {nameof(DbContext)} в котором нет нужного {nameof(DbSet<TId>)}.");
         }
