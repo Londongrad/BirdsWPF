@@ -1,7 +1,6 @@
 ﻿using BirdsCommon.Repository;
 using BirdsRepository.Configurations;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace BirdsRepository
 {
@@ -25,7 +24,7 @@ namespace BirdsRepository
             //    .UseSqlite($"Data Source={DbFullName}");
 
             //optionsBuilder.LogTo(Console.WriteLine, [RelationalEventId.CommandExecuted]);
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-9OKU3FE\\SQLEXPRESS;Initial Catalog=Birds;Integrated Security=True;Encrypt=False;Trust Server Certificate=True");
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-B2DG91S\\SQLEXPRESS;Initial Catalog=Birds;Integrated Security=True;Trust Server Certificate=True");
         }
     }
 }

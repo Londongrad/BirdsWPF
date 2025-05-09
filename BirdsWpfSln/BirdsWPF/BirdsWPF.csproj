@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>bird.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -54,6 +55,10 @@
   <ItemGroup>
     <Page Remove="wwwroot\Themes\AddBirdButtonTheme.xaml" />
     <Page Remove="wwwroot\Themes\ComboBoxTheme.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="bird.ico" />
   </ItemGroup>
 
   <ItemGroup>

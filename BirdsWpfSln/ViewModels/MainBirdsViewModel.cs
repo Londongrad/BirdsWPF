@@ -35,7 +35,7 @@ namespace BirdsViewModels
             //Коллекция для сортировки.
             BirdsCollectionView = CollectionViewSource.GetDefaultView(Birds);
             BirdsCollectionView.SortDescriptions.Add(new SortDescription(nameof(Bird.IsActive), ListSortDirection.Descending));
-            BirdsCollectionView.SortDescriptions.Add(new SortDescription(nameof(Bird.Arrival), ListSortDirection.Descending));
+            BirdsCollectionView.SortDescriptions.Add(new SortDescription(nameof(Bird.Departure), ListSortDirection.Descending));
             BirdsCollectionView.SortDescriptions.Add(new SortDescription(nameof(Bird.Name), ListSortDirection.Descending));
         }
 
